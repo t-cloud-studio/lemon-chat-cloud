@@ -1,2 +1,2 @@
-# pony-chat-server
-pony-chat 后端服务
+# lemon-chat-server
+lemon-chat-server 后端服务
