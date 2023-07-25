@@ -3,27 +3,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>lemon-im-server</artifactId>
         <groupId>com.tcloud</groupId>
+        <artifactId>lemon-chat-cloud</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>lemon-im-protocol</artifactId>
-    <version>${project.parent.version}</version>
-    <name>lemon-im-protocol</name>
-    <description>编解码</description>
+    <artifactId>lemon-web-server</artifactId>
+    <version>1.0.0</version>
+    <name>lemon-web-server</name>
+    <description>lemon_web_server</description>
     <properties>
         <java.version>17</java.version>
     </properties>
-
     <dependencies>
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.tcloud</groupId>
-            <artifactId>lemon-im-common</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

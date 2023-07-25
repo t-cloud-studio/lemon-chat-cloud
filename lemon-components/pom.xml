@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>lemon-chat</artifactId>
+        <artifactId>lemon-chat-cloud</artifactId>
         <groupId>com.tcloud</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>components</artifactId>
-    <version>${project.parent.version}</version>
+    <artifactId>lemon-components</artifactId>
+    <version>1.0.0</version>
     <name>lemon-components</name>
     <packaging>pom</packaging>
     <description>柠檬chat项目组件</description>

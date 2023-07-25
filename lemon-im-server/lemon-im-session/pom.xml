@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>imserver</artifactId>
+        <artifactId>lemon-im-server</artifactId>
         <groupId>com.tcloud</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>session</artifactId>
+    <artifactId>lemon-im-session</artifactId>
     <version>${project.parent.version}</version>
     <name>lemon-im-session</name>
     <description>lemon-im 会话和连接模块</description>
@@ -35,8 +35,8 @@
         </dependency>
         <dependency>
             <groupId>com.tcloud</groupId>
-            <artifactId>protocol</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>lemon-im-protocol</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

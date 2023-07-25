@@ -1,9 +1,9 @@
 package com.tcloud.session.server;
 
+import com.tcloud.imcommon.utils.NetUtil;
 import com.tcloud.protocol.codec.ProtobufDecoder;
 import com.tcloud.protocol.codec.ProtobufEncoder;
 import com.tcloud.session.config.ChatServerConfig;
-import com.tcloud.imcommon.utils.NetUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
@@ -12,10 +12,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 
 import java.net.InetSocketAddress;
@@ -27,6 +26,7 @@ import java.net.InetSocketAddress;
  */
 @Slf4j
 @Configuration
+@ConditionalOnBean(ChatServerConfig.class)
 public class ChatNettyServer {
 
     private EventLoopGroup bossGroup;
@@ -70,6 +70,19 @@ public class ChatNettyServer {
                 });
         // 执行端口绑定
         bind(bootstrap, ip, chatServerConfig.getPort());
+        // print banner
+        printBanner();
+    }
+
+    private void printBanner() {
+        if (!chatServerConfig.isPrintBanner()){
+            return;
+        }
+        String banner = ".-.   .---..-.-.-..----..-..-.\n" +
+                "| |__ | |- | | | || || || .` |\n" +
+                "`----'`---'`-'-'-'`----'`-'`-'\n" +
+                "------ lemon chat-- version:1.0";
+        System.out.println(banner);
     }
 
     /**

@@ -6,7 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+/**
+ * IM服务引导启动
+ *
+ * @author Anker
+ */
+@SpringBootApplication(scanBasePackages = "com.tcloud")
 public class LemonImBootstrapApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
