@@ -7,12 +7,21 @@
         <groupId>com.tcloud</groupId>
         <version>1.0.0</version>
     </parent>
-
+    <groupId>com.tcloud.im</groupId>
     <artifactId>lemon-im-server</artifactId>
-    <version>${project.parent.version}</version>
+    <version>1.0.0</version>
     <name>lemon-im-server</name>
     <packaging>pom</packaging>
     <description>im核心服务模块</description>
+
+    <modules>
+        <module>lemon-im-register</module>
+        <module>lemon-im-authentication</module>
+        <module>lemon-im-bootstrap</module>
+        <module>lemon-im-distribute</module>
+        <module>lemon-im-link</module>
+    </modules>
+
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -37,6 +46,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

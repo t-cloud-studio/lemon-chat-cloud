@@ -1,0 +1,5 @@
+zookeeper:
+  url: localhost:2021
+  root: /test
+  session-timeout: 10000
+

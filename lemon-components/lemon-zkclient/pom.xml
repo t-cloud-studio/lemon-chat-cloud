@@ -8,9 +8,10 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-zkclient</artifactId>
-    <version>${project.parent.version}</version>
+    <version>1.0.0</version>
     <name>lemon-zkclient</name>
     <description>lemon-zkclient</description>
+    <packaging>pom</packaging>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -29,6 +30,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

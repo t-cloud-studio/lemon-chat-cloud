@@ -19,6 +19,6 @@ public class LemonZookeeperAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("zkClient is start!!");
+        System.out.println("ZookeeperAutoConfiguration is complete!");
     }
 }

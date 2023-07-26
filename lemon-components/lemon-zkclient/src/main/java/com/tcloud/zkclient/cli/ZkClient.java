@@ -1,0 +1,195 @@
+package com.tcloud.zkclient.cli;
+
+import com.alibaba.fastjson2.JSON;
+import com.tcloud.zkclient.common.exceptions.ZkNodeNoDataException;
+import com.tcloud.zkclient.factory.ClientFactory;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.utils.CloseableUtils;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+/**
+ * ZK 客户端
+ *
+ * @author Anker
+ **/
+@Data
+public class ZkClient implements InitializingBean, DisposableBean {
+
+    /**
+     * Curator 客户端
+     */
+    private CuratorFramework client;
+    /**
+     * ZK连接地址
+     */
+    private String connectionUrl;
+    /**
+     * 会话超时时间（单位：毫秒）
+     */
+    private Integer sessionTimeout;
+    /**
+     * 根节点
+     */
+    private String rootPath;
+
+    public ZkClient(String connectionUrl, Integer sessionTimeout, String rootPath) {
+        if (Objects.nonNull(client)) {
+            return;
+        }
+        //创建客户端
+        client = ClientFactory.createSimple(connectionUrl, sessionTimeout);
+        //启动客户端实例,连接服务器
+        client.start();
+        // 根节点
+        this.rootPath = rootPath;
+    }
+
+    /**
+     * 创建持久化节点
+     *
+     * @param zkPath 路径
+     * @param data   节点数据
+     */
+    public void createNode(String zkPath, String data) {
+        try {
+            // 创建一个 ZNode 节点
+            byte[] payload = "to set content".getBytes(StandardCharsets.UTF_8);
+            if (data != null) {
+                payload = data.getBytes(StandardCharsets.UTF_8);
+            }
+            client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(zkPath, payload);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 创建持久化节点
+     *
+     * @param zkPath 路径
+     * @param data   节点数据
+     */
+    public void createNode(String zkPath, Object data) {
+        try {
+            // 创建一个 ZNode 节点
+            if (Objects.isNull(data)) {
+                throw new NullPointerException("Data can't be null");
+            }
+            client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(zkPath, JSON.toJSONBytes(data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 创建持久化节点
+     *
+     * @param zkPath 路径
+     */
+    public void createNode(String zkPath) {
+        try {
+            client.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(zkPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除节点
+     *
+     * @param zkPath 节点路径
+     */
+    public void deleteNode(String zkPath) {
+        try {
+            if (!nodeExists(zkPath)) {
+                return;
+            }
+            client.delete().forPath(zkPath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 节点是否存在
+     *
+     * @param path zk路径
+     */
+    public boolean nodeExists(String path) {
+        try {
+            Stat stat = client.checkExists().forPath(path);
+            if (null == stat) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 创建 临时 顺序 节点
+     *
+     * @param srcPath 路径
+     * @return 路径地址
+     */
+    public String createEphemeralSeqNode(String srcPath) {
+        try {
+            // 创建一个 ZNode 节点
+            return client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(srcPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public void updateData(String nodePath, Object data) {
+        if (Objects.isNull(data)) {
+            throw new ZkNodeNoDataException("set the data is null");
+        }
+        if (nodeExists(nodePath)) {
+            try {
+                client.setData().forPath(nodePath, data.toString().getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        this.createNode(nodePath, data);
+    }
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // 创建根节点
+        if (nodeExists(rootPath)) {
+            return;
+        }
+        this.createNode(rootPath);
+    }
+
+    /**
+     * 销毁客户端
+     */
+    @Override
+    public void destroy() {
+        CloseableUtils.closeQuietly(client);
+    }
+
+}
