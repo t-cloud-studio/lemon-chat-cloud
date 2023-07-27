@@ -29,7 +29,11 @@ public class Server {
     /**
      * 服务客户端连接数
      */
-    private AtomicInteger connections = new AtomicInteger(0);
+    private AtomicInteger connections;
+    /**
+     * 节点id
+     */
+    private String serverId;
 
 
 }

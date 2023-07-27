@@ -14,14 +14,18 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextClosedEvent;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * IM Netty 服务
@@ -31,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @Configuration
 @ConditionalOnBean(ChatServerConfig.class)
-public class ChatNettyServer {
+public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> {
 
     private EventLoopGroup bossGroup;
 
@@ -45,6 +49,7 @@ public class ChatNettyServer {
     private ServerRegister serverRegister;
 
 
+    @PostConstruct
     public void start() throws Exception {
         // 监听线程组
         bossGroup = new NioEventLoopGroup(1);
@@ -89,9 +94,10 @@ public class ChatNettyServer {
         Server server = Server.builder()
                 .port(finalBindPort)
                 .ip(ip)
+                .connections(new AtomicInteger(0))
                 .name(serverName)
                 .build();
-        serverRegister.register(server);
+        serverRegister.registerServer(server);
     }
 
     private void printBanner() {
@@ -123,4 +129,13 @@ public class ChatNettyServer {
         }).sync();
     }
 
+    /**
+     * 应用停止时执行
+     *
+     * @param event
+     */
+    @Override
+    public void onApplicationEvent(ContextClosedEvent event) {
+        serverRegister.offlineServer(chatServerConfig.getServerName());
+    }
 }

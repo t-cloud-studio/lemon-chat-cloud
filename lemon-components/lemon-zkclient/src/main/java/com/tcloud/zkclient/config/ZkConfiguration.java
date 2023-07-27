@@ -58,8 +58,7 @@ public class ZkConfiguration implements InitializingBean {
         }
         if (CharSequenceUtil.isBlank(root)) {
             this.root = DEFAULT_ROOT_PATH;
-        }
-        if (root.startsWith(StrPool.SLASH)) {
+        } else if (!root.startsWith(StrPool.SLASH)){
             this.root = StrPool.SLASH.concat(root);
         }
     }

@@ -12,16 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Anker
  */
 @SpringBootApplication(scanBasePackages = "com.tcloud")
-public class LemonImBootstrapApplication implements CommandLineRunner {
+public class LemonImBootstrapApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LemonImBootstrapApplication.class, args);
     }
 
-
-    @Override
-    public void run(String... args) throws Exception {
-        ChatNettyServer chatNettyServer = SpringUtil.getBean(ChatNettyServer.class);
-        chatNettyServer.start();
-    }
 }

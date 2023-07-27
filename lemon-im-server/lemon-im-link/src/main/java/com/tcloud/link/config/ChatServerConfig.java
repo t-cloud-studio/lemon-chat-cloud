@@ -1,5 +1,6 @@
 package com.tcloud.link.config;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import com.tcloud.im.common.constants.CoreConstant;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,10 @@ public class ChatServerConfig implements InitializingBean {
         if (Objects.isNull(port)) {
             log.warn("don`t hava port config, will use the default port:{}", CoreConstant.DEFAULT_PORT);
             this.port = CoreConstant.DEFAULT_PORT;
+        }
+
+        if (CharSequenceUtil.isBlank(serverName)){
+            throw new NullPointerException("serverName must not be null");
         }
     }
 }

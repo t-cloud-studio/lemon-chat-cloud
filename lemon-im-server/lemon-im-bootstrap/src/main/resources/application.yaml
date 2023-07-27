@@ -1,5 +1,8 @@
 zookeeper:
-  url: localhost:2021
+  url: 127.0.0.1:2181
   root: /test
   session-timeout: 10000
+chat-server:
+  port: 9911
+  serverName: chat-server-1
 

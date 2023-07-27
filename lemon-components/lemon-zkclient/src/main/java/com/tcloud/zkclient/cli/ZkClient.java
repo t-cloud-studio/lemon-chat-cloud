@@ -1,6 +1,10 @@
 package com.tcloud.zkclient.cli;
 
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.text.StrPool;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.tcloud.zkclient.common.exceptions.ZkNodeNoDataException;
 import com.tcloud.zkclient.factory.ClientFactory;
 import lombok.Data;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -41,6 +46,9 @@ public class ZkClient implements InitializingBean, DisposableBean {
      */
     private String rootPath;
 
+
+
+
     public ZkClient(String connectionUrl, Integer sessionTimeout, String rootPath) {
         if (Objects.nonNull(client)) {
             return;
@@ -51,6 +59,14 @@ public class ZkClient implements InitializingBean, DisposableBean {
         client.start();
         // 根节点
         this.rootPath = rootPath;
+    }
+
+
+    public String buildPath(String childPath){
+        if (CharSequenceUtil.isBlank(childPath)){
+            throw new NullPointerException("please set you child path");
+        }
+        return StrUtil.builder(this.rootPath).append(StrPool.SLASH).append(childPath).toString();
     }
 
     /**
@@ -111,10 +127,13 @@ public class ZkClient implements InitializingBean, DisposableBean {
      * @param zkPath 节点路径
      */
     public void deleteNode(String zkPath) {
+        if (CharSequenceUtil.isBlank(zkPath)){
+            return;
+        }
+        if (!nodeExists(zkPath)) {
+            return;
+        }
         try {
-            if (!nodeExists(zkPath)) {
-                return;
-            }
             client.delete().forPath(zkPath);
 
         } catch (Exception e) {
@@ -122,6 +141,29 @@ public class ZkClient implements InitializingBean, DisposableBean {
         }
     }
 
+    /**
+     * 获取节点数据
+     *
+     * @param zkPath 节点路径
+     */
+    public <T> T getData(String zkPath, Class<T> returnType) {
+        if (CharSequenceUtil.isBlank(zkPath)){
+            return null;
+        }
+        if (!nodeExists(zkPath)) {
+            return null;
+        }
+        try {
+            byte[] bytes = client.getData().forPath(zkPath);
+            if (Objects.isNull(bytes) || bytes.length == 0) {
+                return null;
+            }
+            return JSON.parseObject(bytes, returnType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 节点是否存在
@@ -165,7 +207,7 @@ public class ZkClient implements InitializingBean, DisposableBean {
         }
         if (nodeExists(nodePath)) {
             try {
-                client.setData().forPath(nodePath, data.toString().getBytes());
+                client.setData().forPath(nodePath, JSON.toJSONBytes(data));
             } catch (Exception e) {
                 e.printStackTrace();
             }

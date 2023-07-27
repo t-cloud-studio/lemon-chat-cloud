@@ -6,12 +6,11 @@
         <artifactId>lemon-components</artifactId>
         <groupId>com.tcloud</groupId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>lemon-zkclient</artifactId>
-    <version>1.0.0</version>
-    <name>lemon-zkclient</name>
-    <description>lemon-zkclient</description>
-    <packaging>pom</packaging>
+    <description>Zookeeper 客户端</description>
+
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -37,22 +36,5 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
