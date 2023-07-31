@@ -9,7 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.StreamCorruptedException;
 import java.util.Objects;
 
 import static com.tcloud.zkclient.common.constants.CoreConstant.DEFAULT_ROOT_PATH;

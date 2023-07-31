@@ -16,7 +16,7 @@
     <description>柠檬chat项目组件</description>
 
     <modules>
-        <module>lemon-zkclient</module>
+        <module>lemon-zk-client</module>
         <module>lemon-components-common</module>
         <module>lemon-redis-client</module>
     </modules>

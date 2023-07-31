@@ -8,7 +8,7 @@
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>lemon-zkclient</artifactId>
+    <artifactId>lemon-zk-client</artifactId>
     <description>Zookeeper 客户端</description>
 
     <properties>

@@ -7,9 +7,9 @@
         <groupId>com.tcloud.im</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>lemon-gateway-im</artifactId>
+    <artifactId>lemon-im-gateway</artifactId>
     <version>1.0.0</version>
-    <name>lemon-gateway-im</name>
+    <name>lemon-im-gateway</name>
     <description>IM 服务网关，用来分配用户连接到服务器</description>
     <properties>
         <java.version>17</java.version>
