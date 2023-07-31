@@ -1,14 +1,14 @@
 package com.tcloud.zkclient.cli;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
+import com.google.common.collect.Sets;
 import com.tcloud.zkclient.common.exceptions.ZkNodeNoDataException;
 import com.tcloud.zkclient.factory.ClientFactory;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
@@ -17,9 +17,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.logging.Logger;
+import java.util.*;
 
 /**
  * ZK 客户端
@@ -216,6 +214,51 @@ public class ZkClient implements InitializingBean, DisposableBean {
         this.createNode(nodePath, data);
     }
 
+    public Set<String> getRootChildrenData() {
+        Set<String> data = Sets.newHashSet();
+        try {
+            // 获取所有服务节点
+            List<String> children = client.getChildren().forPath(rootPath);
+            if (CollUtil.isEmpty(children)){
+                return null;
+            }
+            for (String childNode : children) {
+                if (!this.nodeExists(childNode)){
+                    continue;
+                }
+                byte[] bytes = client.getData().forPath(childNode);
+                if (Objects.isNull(bytes) || bytes.length == 0){
+                    continue;
+                }
+                data.add(Arrays.toString(bytes));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+
+    public Set<String> getChildrenData(String zNode) {
+        Set<String> data = Sets.newHashSet();
+        try {
+            List<String> children = client.getChildren().forPath(zNode);
+            if (CollUtil.isEmpty(children)){
+                return null;
+            }
+            for (String childNode : children) {
+                byte[] bytes = client.getData().forPath(childNode);
+                if (Objects.isNull(bytes) || bytes.length == 0){
+                    continue;
+                }
+                data.add(Arrays.toString(bytes));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -233,5 +276,6 @@ public class ZkClient implements InitializingBean, DisposableBean {
     public void destroy() {
         CloseableUtils.closeQuietly(client);
     }
+
 
 }

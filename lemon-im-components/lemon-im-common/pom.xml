@@ -8,23 +8,11 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-im-common</artifactId>
-    <version>${project.parent.version}</version>
+    <version>1.0.0</version>
     <name>lemon-im-common</name>
     <description>lemon-im-common</description>
     <properties>
         <java.version>17</java.version>
     </properties>
-    <dependencies>
-
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

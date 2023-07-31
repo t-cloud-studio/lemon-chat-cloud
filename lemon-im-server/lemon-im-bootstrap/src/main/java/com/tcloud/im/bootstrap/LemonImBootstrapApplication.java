@@ -1,8 +1,5 @@
 package com.tcloud.im.bootstrap;
 
-import cn.hutool.extra.spring.SpringUtil;
-import com.tcloud.link.server.ChatNettyServer;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -4,7 +4,7 @@ import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.protocol.codec.ProtobufDecoder;
 import com.tcloud.im.protocol.codec.ProtobufEncoder;
 import com.tcloud.link.config.ChatServerConfig;
-import com.tcloud.register.ServerRegister;
+import com.tcloud.register.handler.ServerRegister;
 import com.tcloud.register.domain.core.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;

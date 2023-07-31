@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -30,6 +30,7 @@
         <module>lemon-components</module>
         <module>lemon-web-server</module>
         <module>lemon-gateway</module>
+        <module>lemon-im-components</module>
     </modules>
 
 
@@ -42,6 +43,8 @@
         <hutool.version>5.8.18</hutool.version>
         <protobuf.version>3.21.9</protobuf.version>
         <fastjson.version>2.0.34</fastjson.version>
+        <redis.version>3.1.0</redis.version>
+        <jackson.version>2.15.2</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -89,6 +92,16 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

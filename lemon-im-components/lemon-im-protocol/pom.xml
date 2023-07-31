@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-im-protocol</artifactId>
-    <version>${project.parent.version}</version>
+    <version>1.0.0</version>
     <name>lemon-im-protocol</name>
     <description>编解码</description>
     <properties>
@@ -31,13 +31,5 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

@@ -6,22 +6,31 @@
         <groupId>com.tcloud</groupId>
         <artifactId>lemon-chat-cloud</artifactId>
         <version>1.0.0</version>
+        <relativePath>../lemon-gateway/pom.xml</relativePath>
     </parent>
-    <groupId>com.tcloud.gateway</groupId>
     <artifactId>lemon-gateway</artifactId>
     <version>1.0.0</version>
     <name>lemon-gateway</name>
-    <description>lemon-gateway</description>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>lemon-gateway-web</module>
-        <module>lemon-gateway-im</module>
-    </modules>
+    <description>应用网关</description>
     <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -29,6 +38,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

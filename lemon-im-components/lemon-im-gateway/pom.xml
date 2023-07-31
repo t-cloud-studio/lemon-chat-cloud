@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tcloud.im</groupId>
+        <artifactId>lemon-im-components</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../lemon-gateway/pom.xml</relativePath>
+    </parent>
+    <artifactId>lemon-gateway-im</artifactId>
+    <version>1.0.0</version>
+    <name>lemon-gateway-im</name>
+    <description>IM 服务网关，用来分配用户连接到服务器</description>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.tcloud.im</groupId>
+            <artifactId>lemon-im-register</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

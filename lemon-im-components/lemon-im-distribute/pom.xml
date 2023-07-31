@@ -3,25 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>lemon-im-server</artifactId>
+        <artifactId>lemon-im-components</artifactId>
         <groupId>com.tcloud.im</groupId>
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-im-distribute</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>lemon-im-distribute</name>
-    <description>lemon-im-distribute</description>
+    <description>消息转发功能模块</description>
     <properties>
         <java.version>17</java.version>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

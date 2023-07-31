@@ -18,6 +18,8 @@
     <modules>
         <module>lemon-im-common</module>
         <module>lemon-im-protocol</module>
+        <module>lemon-im-register</module>
+        <module>lemon-im-distribute</module>
     </modules>
 
     <properties>
@@ -39,16 +41,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

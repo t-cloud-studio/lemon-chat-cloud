@@ -15,10 +15,8 @@
     <description>im核心服务模块</description>
 
     <modules>
-        <module>lemon-im-register</module>
         <module>lemon-im-authentication</module>
         <module>lemon-im-bootstrap</module>
-        <module>lemon-im-distribute</module>
         <module>lemon-im-link</module>
     </modules>
 
@@ -45,22 +43,5 @@
         </dependency>
 
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
