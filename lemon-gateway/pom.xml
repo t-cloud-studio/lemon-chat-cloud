@@ -6,7 +6,6 @@
         <groupId>com.tcloud</groupId>
         <artifactId>lemon-chat-cloud</artifactId>
         <version>1.0.0</version>
-        <relativePath>../lemon-gateway/pom.xml</relativePath>
     </parent>
     <artifactId>lemon-gateway</artifactId>
     <version>1.0.0</version>

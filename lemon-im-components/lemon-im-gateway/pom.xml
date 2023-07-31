@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.tcloud.im</groupId>
         <artifactId>lemon-im-components</artifactId>
+        <groupId>com.tcloud.im</groupId>
         <version>1.0.0</version>
-        <relativePath>../../lemon-gateway/pom.xml</relativePath>
     </parent>
     <artifactId>lemon-gateway-im</artifactId>
     <version>1.0.0</version>

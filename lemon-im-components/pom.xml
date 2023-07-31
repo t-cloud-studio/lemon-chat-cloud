@@ -20,6 +20,7 @@
         <module>lemon-im-protocol</module>
         <module>lemon-im-register</module>
         <module>lemon-im-distribute</module>
+        <module>lemon-im-gateway</module>
     </modules>
 
     <properties>
