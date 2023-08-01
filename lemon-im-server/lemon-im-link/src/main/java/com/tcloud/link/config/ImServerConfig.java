@@ -1,0 +1,50 @@
+package com.tcloud.link.config;
+
+import cn.hutool.core.text.CharSequenceUtil;
+import com.tcloud.im.common.constants.CoreConstant;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.Objects;
+
+@Data
+@Slf4j
+@Configuration
+@ConfigurationProperties(prefix = "im.server")
+public class ImServerConfig implements InitializingBean {
+
+
+    /**
+     * start on port
+     */
+    private Integer port;
+    /**
+     * 服务名称
+     */
+    private String serverName;
+    /**
+     * 打印banner
+     */
+    private boolean printBanner = true;
+
+    /**
+     * the work group threads count , default value is the cpu count * 2
+     */
+    private Integer workGroupCount = Runtime.getRuntime().availableProcessors() * 2;
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (Objects.isNull(port)) {
+            log.warn("don`t hava port config, will use the default port:{}", CoreConstant.DEFAULT_PORT);
+            this.port = CoreConstant.DEFAULT_PORT;
+        }
+
+        if (CharSequenceUtil.isBlank(serverName)){
+            throw new NullPointerException("serverName must not be null");
+        }
+    }
+}

@@ -2,6 +2,7 @@ package com.tcloud.zkclient.cli;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
@@ -223,6 +224,7 @@ public class ZkClient implements InitializingBean, DisposableBean {
                 return null;
             }
             for (String childNode : children) {
+                childNode = StrBuilder.create(rootPath).append(StrPool.SLASH).append(childNode).toString();
                 if (!this.nodeExists(childNode)){
                     continue;
                 }
@@ -230,7 +232,7 @@ public class ZkClient implements InitializingBean, DisposableBean {
                 if (Objects.isNull(bytes) || bytes.length == 0){
                     continue;
                 }
-                data.add(Arrays.toString(bytes));
+                data.add(new String(bytes,StandardCharsets.UTF_8));
             }
         } catch (Exception e){
             e.printStackTrace();

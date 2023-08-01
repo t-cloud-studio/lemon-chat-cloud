@@ -3,7 +3,7 @@ package com.tcloud.link.server;
 import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.protocol.codec.ProtobufDecoder;
 import com.tcloud.im.protocol.codec.ProtobufEncoder;
-import com.tcloud.link.config.ChatServerConfig;
+import com.tcloud.link.config.ImServerConfig;
 import com.tcloud.register.handler.ServerRegister;
 import com.tcloud.register.domain.core.Server;
 import io.netty.bootstrap.ServerBootstrap;
@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @Configuration
-@ConditionalOnBean(ChatServerConfig.class)
+@ConditionalOnBean(ImServerConfig.class)
 public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> {
 
     private EventLoopGroup bossGroup;
@@ -44,7 +44,7 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
     private ServerBootstrap bootstrap;
 
     @Autowired
-    private ChatServerConfig chatServerConfig;
+    private ImServerConfig chatServerConfig;
     @Autowired
     private ServerRegister serverRegister;
 
@@ -83,16 +83,17 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         CompletableFuture<Integer> bindPortFuture = new CompletableFuture<>();
         // 执行端口绑定
         bind(bootstrap, ip, chatServerConfig.getPort(), bindPortFuture);
+        // 获取绑定端口
+        Integer bindPort = bindPortFuture.get();
         // 服务注册
-        this.registerServer(ip, bindPortFuture, chatServerConfig.getServerName());
+        this.registerServer(ip, bindPort, chatServerConfig.getServerName());
         // print banner
         printBanner();
     }
 
-    private void registerServer(String ip, CompletableFuture<Integer> bindPortFuture, String serverName) throws ExecutionException, InterruptedException {
-        Integer finalBindPort = bindPortFuture.get();
+    private void registerServer(String ip, Integer bindPort, String serverName) throws ExecutionException, InterruptedException {
         Server server = Server.builder()
-                .port(finalBindPort)
+                .port(bindPort)
                 .ip(ip)
                 .connections(new AtomicInteger(0))
                 .name(serverName)
@@ -107,7 +108,7 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         String banner = ".-.   .---..-.-.-..----..-..-.\n" +
                 "| |__ | |- | | | || || || .` |\n" +
                 "`----'`---'`-'-'-'`----'`-'`-'\n" +
-                "------ lemon chat-- version:1.0";
+                "--- lemon chat started-- version:1.0";
         System.out.println(banner);
     }
 
@@ -122,11 +123,13 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         bootstrap.bind(new InetSocketAddress(ipHost, port)).addListener(future -> {
             if (!future.isSuccess()) {
                 log.warn("Chat server started failed on port {}", port);
-                bind(bootstrap, ipHost, port + 1, bindPortFuture);
+                Integer newPort = port + 1;
+                bind(bootstrap, ipHost, newPort, bindPortFuture);
+            } else {
+                bindPortFuture.complete(port);
+                log.info("Chat server started on port {}", port);
             }
-            bindPortFuture.complete(port);
-            log.info("Chat server started on port {}", port);
-        }).sync();
+        });
     }
 
     /**

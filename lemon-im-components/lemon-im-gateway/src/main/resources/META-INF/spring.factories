@@ -1,1 +1,0 @@
-spring.factoriesorg.springframework.boot.autoconfigure.EnableAutoConfiguration=com.tcloud.im.gateway.LemonImGatewayAutoConfiguration

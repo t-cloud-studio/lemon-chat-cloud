@@ -6,4 +6,5 @@ public interface NumConstant {
 
     Integer M_ONE = -1;
 
+    Integer ZERO = 0;
 }
