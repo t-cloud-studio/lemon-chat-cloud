@@ -29,8 +29,6 @@ public class ZkWatcherChildrenRegisterProcessor implements BeanPostProcessor {
         if (!(bean instanceof ZkChildWatcherListener listener)) {
             return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
         }
-        // 初始化
-        listener.init();
         CuratorCache.Options option = null;
         if (Objects.nonNull(listener.getOptions())) {
             option = listener.getOptions();

@@ -33,11 +33,7 @@ public class Server implements Comparable<Server> {
     /**
      * 节点id
      */
-    private String serverId;
-    /**
-     * 权重
-     */
-    private Integer weight;
+    private Long serverId;
 
 
     @Override

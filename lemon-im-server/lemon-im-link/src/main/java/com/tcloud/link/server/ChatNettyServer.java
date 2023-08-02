@@ -1,5 +1,6 @@
 package com.tcloud.link.server;
 
+import com.tcloud.idgenerator.handler.DistributedIdGenerator;
 import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.protocol.codec.ProtobufDecoder;
 import com.tcloud.im.protocol.codec.ProtobufEncoder;
@@ -47,6 +48,8 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
     private ImServerConfig chatServerConfig;
     @Autowired
     private ServerRegister serverRegister;
+    @Autowired
+    private DistributedIdGenerator idGenerator;
 
 
     @PostConstruct
@@ -95,6 +98,7 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         Server server = Server.builder()
                 .port(bindPort)
                 .ip(ip)
+                .serverId(idGenerator.generateId())
                 .connections(new AtomicInteger(0))
                 .name(serverName)
                 .build();

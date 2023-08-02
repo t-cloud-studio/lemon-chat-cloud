@@ -15,4 +15,11 @@
         <java.version>17</java.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

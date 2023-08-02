@@ -25,14 +25,14 @@ public class WeightBalancePolicyImpl extends AbstractBalancePolicy {
         // 计算总权重
         int totalWeight = 0;
         for (Server server : super.getServers()) {
-            totalWeight += server.getWeight();
+            totalWeight += server.getConnections().intValue();
         }
         // 根据权重选择服务器
         Server nextServer = null;
         int accumulatedWeight = 0;
         int randomWeight = new Random().nextInt(totalWeight);
         for (Server server : super.getServers()) {
-            accumulatedWeight += server.getWeight();
+            accumulatedWeight += server.getConnections().intValue();
             if (randomWeight < accumulatedWeight) {
                 nextServer = server;
                 break;

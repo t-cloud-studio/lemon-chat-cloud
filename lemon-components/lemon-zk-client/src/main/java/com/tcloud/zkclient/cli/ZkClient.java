@@ -7,10 +7,13 @@ import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Sets;
+import com.tcloud.zkclient.common.constants.CoreConstant;
 import com.tcloud.zkclient.common.exceptions.ZkNodeNoDataException;
 import com.tcloud.zkclient.factory.ClientFactory;
 import lombok.Data;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
@@ -260,6 +263,21 @@ public class ZkClient implements InitializingBean, DisposableBean {
         }
         return data;
     }
+
+    /**
+     * 雪花算法workerId生成
+     *
+     * @return
+     * @throws Exception
+     */
+    public long getWorkerId(){
+        // 创建临时顺序节点
+        String workerPath = this.createEphemeralSeqNode(CoreConstant.SNOWFLAKE_ID_WORKS);
+        // 从节点路径中提取worker ID
+        String[] parts = workerPath.split("-");
+        return Long.parseLong(parts[parts.length - 1]);
+    }
+
 
 
     @Override

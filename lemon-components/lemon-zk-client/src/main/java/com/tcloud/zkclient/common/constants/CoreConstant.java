@@ -8,4 +8,6 @@ public interface CoreConstant {
 
     Integer DEFAULT_SESSION_TIMEOUT = 10000;
 
+    String SNOWFLAKE_ID_WORKS = "/snowflake_id/works/worker-";
+    String DISTRIBUTED_ID_CONTAINER = "/distributed_id/container/";
 }

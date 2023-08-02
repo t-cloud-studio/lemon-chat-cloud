@@ -14,16 +14,20 @@ import java.util.List;
 @Component
 public class LoadBalanceHandler {
 
-    @Autowired
-    private List<AbstractBalancePolicy> policies;
-    @Autowired
-    private ImGatewayConfiguration gatewayConfiguration;
+    private final AbstractBalancePolicy balancePolicy;
 
+
+    @Autowired
+    public LoadBalanceHandler(AbstractBalancePolicy balancePolicy) {
+        this.balancePolicy = balancePolicy;
+    }
+
+    /**
+     * 执行负载均衡策略
+     *
+     * @return 负载后的服务信息
+     */
     public Server balance() {
-        AbstractBalancePolicy policy = policies.stream().filter(p -> {
-            BalancePolicy annotation = p.getClass().getAnnotation(BalancePolicy.class);
-            return gatewayConfiguration.getPolicy().equals(annotation.policy());
-        }).findAny().orElse(SpringUtil.getBean(RoundRobinBalancePolicyImpl.class));
-        return policy.balance();
+        return balancePolicy.balance();
     }
 }

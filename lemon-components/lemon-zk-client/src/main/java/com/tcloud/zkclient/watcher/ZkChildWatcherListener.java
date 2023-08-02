@@ -1,9 +1,13 @@
 package com.tcloud.zkclient.watcher;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import lombok.Data;
+import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.CuratorCache;
 import org.apache.curator.framework.recipes.cache.CuratorCacheListener;
 import org.springframework.beans.factory.DisposableBean;
+
+import java.util.Objects;
 
 @Data
 public abstract class ZkChildWatcherListener implements CuratorCacheListener {
@@ -18,4 +22,16 @@ public abstract class ZkChildWatcherListener implements CuratorCacheListener {
      */
     public abstract void init();
 
+
+    public boolean isRootPath(ChildData... childData) {
+        for (ChildData childDatum : childData) {
+            if (Objects.isNull(childDatum)) {
+                continue;
+            }
+            if (zkNode.equals(childDatum.getPath())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

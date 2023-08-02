@@ -44,6 +44,11 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.tcloud</groupId>
+            <artifactId>lemon-id-generator</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
