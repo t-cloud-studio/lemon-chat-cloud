@@ -12,6 +12,6 @@ public class LemonImGatewayAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("im gateway is started!!");
+        System.out.println("--- im gateway is started!!");
     }
 }
