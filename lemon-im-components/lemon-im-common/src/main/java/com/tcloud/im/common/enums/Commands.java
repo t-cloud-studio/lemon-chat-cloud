@@ -3,6 +3,11 @@ package com.tcloud.im.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 命令
+ *
+ * @author Anker
+ */
 @Getter
 @AllArgsConstructor
 public enum Commands {
@@ -10,44 +15,31 @@ public enum Commands {
     /**
      * 登录请求
      */
-    LOGIN_REQUEST(1),
-    /**
-     * 登录响应
-     */
-    LOGIN_RESPONSE(2),
+    LOGIN(1),
     /**
      * 登出请求
      */
-    LOGOUT_REQUEST(3),
-    /**
-     * 登出响应
-     */
-    LOGOUT_RESPONSE(4),
+    LOGOUT(2),
     /**
      * 心跳请求
      */
-    HEARTBEAT_REQUEST(5),
-    /**
-     * 心跳响应
-     */
-    HEARTBEAT_RESPONSE(6),
+    HEARTBEAT(3),
     /**
      * 对话消息请求
      */
-    MESSAGE_REQUEST(7),
+    SINGLE_CHAT(4),
     /**
      * 对话消息响应
      */
-    MESSAGE_RESPONSE(8),
+    GROUP_CHAT(5),
     /**
      * 消息提醒
      */
-    MESSAGE_NOTIFICATION(9);
-
+    NOTIFICATION(6);
     /**
      * CMD value
      */
-    private final Integer cmd;
+    private final int cmd;
 
 
 }
