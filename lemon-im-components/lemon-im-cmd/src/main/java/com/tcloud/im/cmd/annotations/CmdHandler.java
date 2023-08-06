@@ -1,6 +1,6 @@
 package com.tcloud.im.cmd.annotations;
 
-import com.tcloud.im.common.enums.Commands;
+import com.tcloud.im.common.enums.Command;
 import org.springframework.stereotype.Service;
 
 import java.lang.annotation.*;
@@ -17,6 +17,6 @@ import java.lang.annotation.*;
 public @interface CmdHandler {
 
 
-    Commands cmd();
+    Command cmd();
 
 }

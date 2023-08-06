@@ -18,5 +18,14 @@ public interface ProtocolConstant {
      */
     short VERSION = 0x01;
 
+    /**
+     * 基本长度
+     */
+    int BASE_LENGTH = 8;
+
+    /**
+     * 最大数据长度
+     */
+    int MAX_DATA_LENGTH = 2048;
 
 }

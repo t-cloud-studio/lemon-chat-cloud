@@ -1,6 +1,6 @@
 package com.tcloud.im.cmd.handlers;
 
-import com.tcloud.im.protocol.message.ProtoMessage;
+import com.tcloud.im.protocol.msg.LemonMessage;
 
 /**
  * 命令处理器
@@ -15,13 +15,13 @@ public interface ICmdHandler {
      *
      * @param message
      */
-    void receiveMsg(ProtoMessage message);
+    void receiveMsg(LemonMessage message);
 
     /**
      *
      * @param message
      */
-    void sendMsg(ProtoMessage message);
+    void sendMsg(LemonMessage message);
 
 
 }

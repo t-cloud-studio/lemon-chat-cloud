@@ -3,6 +3,8 @@ package com.tcloud.im.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 /**
  * 命令
  *
@@ -10,36 +12,40 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum Commands {
+public enum Command {
 
     /**
      * 登录请求
      */
-    LOGIN(1),
+    LOGIN((byte)1),
     /**
      * 登出请求
      */
-    LOGOUT(2),
+    LOGOUT((byte)2),
     /**
      * 心跳请求
      */
-    HEARTBEAT(3),
+    HEARTBEAT((byte)3),
     /**
      * 对话消息请求
      */
-    SINGLE_CHAT(4),
+    SINGLE_CHAT((byte)4),
     /**
      * 对话消息响应
      */
-    GROUP_CHAT(5),
+    GROUP_CHAT((byte)5),
     /**
      * 消息提醒
      */
-    NOTIFICATION(6);
+    NOTIFICATION((byte)6);
     /**
      * CMD value
      */
-    private final int cmd;
+    private final byte cmd;
 
+
+    public static Command load(byte cmd){
+        return Arrays.stream(values()).filter(c -> c.getCmd() == cmd).findAny().orElse(null);
+    }
 
 }

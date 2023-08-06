@@ -8,7 +8,9 @@ package com.tcloud.im.common.constants;
 public interface CoreConstant {
 
 
-
+    /**
+     * 默认端口
+     */
     Integer DEFAULT_PORT = 9100;
 
 
