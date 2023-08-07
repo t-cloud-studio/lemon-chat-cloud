@@ -15,7 +15,6 @@
     <description>im核心服务模块</description>
 
     <modules>
-        <module>lemon-im-authentication</module>
         <module>lemon-im-bootstrap</module>
         <module>lemon-im-link</module>
     </modules>
