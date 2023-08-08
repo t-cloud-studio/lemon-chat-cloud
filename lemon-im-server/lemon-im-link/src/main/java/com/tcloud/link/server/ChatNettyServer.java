@@ -5,6 +5,7 @@ import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.protocol.codec.ProtobufDecoder;
 import com.tcloud.im.protocol.codec.ProtobufEncoder;
 import com.tcloud.link.config.ImServerConfig;
+import com.tcloud.link.handler.LemonServerHandler;
 import com.tcloud.register.handler.ServerRegister;
 import com.tcloud.register.domain.core.Server;
 import io.netty.bootstrap.ServerBootstrap;
@@ -79,7 +80,8 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         socketChannel.pipeline()
                                 .addLast(new ProtobufDecoder())
-                                .addLast(new ProtobufEncoder()).addLast().addLast().addLast();
+                                .addLast(new ProtobufEncoder())
+                                .addLast(new LemonServerHandler());
                     }
                 });
         // 获取异步绑定端口的 CompletableFuture

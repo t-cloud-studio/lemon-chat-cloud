@@ -24,7 +24,7 @@ public class CmdHandlerProgress {
 
 
     public void executeReceive(Command cmd, LemonMessage message) {
-        ICmdHandler iCmdHandler = findCmdHandler(cmd);
+        ICmdHandler iCmdHandler = this.findCmdHandler(cmd);
         iCmdHandler.receiveMsg(message);
     }
 
