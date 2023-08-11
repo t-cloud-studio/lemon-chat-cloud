@@ -23,9 +23,9 @@ public class LemonServerHandler extends SimpleChannelInboundHandler<LemonMessage
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LemonMessage msg) throws Exception {
         Command cmd = Command.load(msg.getCmd());
-        if (Objects.isNull(cmd)){
+        if (Objects.isNull(cmd)) {
             log.error("invalid cmd :{} ", JSON.toJSON(msg));
         }
-        SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmd,msg);
+        SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmd, msg);
     }
 }

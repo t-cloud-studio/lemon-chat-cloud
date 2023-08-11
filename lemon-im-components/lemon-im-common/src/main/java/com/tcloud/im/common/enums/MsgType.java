@@ -27,7 +27,15 @@ public enum MsgType {
     /**
      * 视频消息
      */
-    VIDEO(4)
+    VIDEO(4),
+    /**
+     * 地图
+     */
+    LOCATION(5),
+    /**
+     * 卡片消息
+     */
+    CARD(6)
     ;
 
 

@@ -45,6 +45,8 @@
         <fastjson.version>2.0.34</fastjson.version>
         <redis.version>3.0.2</redis.version>
         <jackson.version>2.15.2</jackson.version>
+        <satoken.version>1.35.0.RC</satoken.version>
+        <mbp.version>3.5.3.2</mbp.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +104,17 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mbp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

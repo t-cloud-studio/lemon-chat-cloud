@@ -6,6 +6,8 @@ import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.protocol.msg.LemonMessage;
 
 /**
+ * 群聊
+ *
  * @author evans
  * @description
  * @date 2023/8/3

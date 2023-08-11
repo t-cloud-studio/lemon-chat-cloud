@@ -16,6 +16,7 @@
     <version>1.0.0</version>
     <name>lemon-im-session</name>
     <description>lemon-im-session</description>
+    <packaging>pom</packaging>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -30,14 +31,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
