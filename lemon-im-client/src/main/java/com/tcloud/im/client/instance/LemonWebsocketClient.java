@@ -1,6 +1,6 @@
 package com.tcloud.im.client.instance;
 
-import com.example.im.websocket.handler.LemonWebSocketClientHandler;
+import com.tcloud.im.client.handlers.LemonWebSocketClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

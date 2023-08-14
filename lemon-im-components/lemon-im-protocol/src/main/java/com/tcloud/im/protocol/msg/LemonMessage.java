@@ -27,6 +27,10 @@ public class LemonMessage {
      * 消息类型 request response notify
      */
     private byte msgType;
+    /**
+     * 数据长度
+     */
+    private int length;
 
     /**
      * 调试性日志

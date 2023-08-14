@@ -63,8 +63,8 @@ public class ClientSessionManager {
      *
      * @return {@link Set<Server>} 服务集合
      */
-    public ClientSession find(String sessionId) {
-        Object serverId = redisClient.hGet(CLIENT_SESSION_REGISTER_CENTER_KEY, sessionId);
+    public ClientSession find(Long userId) {
+        Object serverId = redisClient.hGet(CLIENT_SESSION_REGISTER_CENTER_KEY, userId.toString());
         String sessionNode = StrUtil.builder(zkClient.getRootPath()).append(StrPool.SLASH).append(serverId).append(StrPool.SLASH).append(serverId).toString();
         if (!zkClient.nodeExists(sessionNode)) {
             return null;

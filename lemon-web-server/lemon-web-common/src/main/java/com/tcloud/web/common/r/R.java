@@ -1,7 +1,7 @@
 package com.tcloud.web.common.r;
 
 
-import com.tcloud.web.common.enums.RespCodeEnum;
+import com.tcloud.web.common.enums.ResultCode;
 import lombok.Data;
 
 /**
@@ -48,7 +48,7 @@ public class R<T> {
      * @return R
      */
     public static <T> R<T> data(T data) {
-        return data(data, RespCodeEnum.SUCCESS.getMsg());
+        return data(data, ResultCode.SUCCESS.getMessage());
     }
 
     /**
@@ -60,7 +60,7 @@ public class R<T> {
      * @return R
      */
     public static <T> R<T> data(T data, String msg) {
-        return data(RespCodeEnum.SUCCESS.getCode(), data, msg);
+        return data(ResultCode.SUCCESS.getCode(), data, msg);
     }
 
     /**
@@ -105,7 +105,7 @@ public class R<T> {
      * @return R
      */
     public static <T> R<T> fail(String msg) {
-        return data(RespCodeEnum.FAILED.getCode(), null, msg);
+        return data(ResultCode.FAILURE.getCode(), null, msg);
     }
 
     /**

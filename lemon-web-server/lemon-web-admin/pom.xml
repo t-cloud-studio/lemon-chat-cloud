@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-web-admin</artifactId>
-    <version>${project.parent.version}</version>
+    <version>1.0.0</version>
     <name>lemon-web-admin</name>
     <description>lemon-web-admin</description>
     <packaging>pom</packaging>
