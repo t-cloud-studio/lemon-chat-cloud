@@ -1,4 +1,4 @@
-package com.tcloud.register.handler;
+package com.tcloud.register.handler.server;
 
 import cn.hutool.core.text.StrPool;
 import com.tcloud.register.domain.core.Server;
@@ -21,13 +21,13 @@ public class ServerRegister {
 
 
     /**
-     * 服务注册
+     * 服务注册到注册中心
      *
      * @param server 服务信息
      */
-    public void registerServer(Server server) {
+    public void register(Server server) {
         // 组装节点
-        String nodePath = zkClient.getRootPath().concat(StrPool.SLASH).concat(server.getName());
+        String nodePath = zkClient.buildPath(server.getServerId().toString());
         if (zkClient.nodeExists(nodePath)){
             // 更新
             zkClient.updateData(nodePath, server);
@@ -39,14 +39,14 @@ public class ServerRegister {
 
 
     /**
-     * 服务注册
+     * 服务下线，将该服务从注册中心移除
      *
-     * @param serverName 目标服务名称
+     * @param serverId 目标服务名称
      */
-    public void offlineServer(String serverName) {
-        String nodePath = zkClient.buildPath(serverName);
+    public void offline(Long serverId) {
+        String nodePath = zkClient.buildPath(serverId.toString());
         // 删除服务
         zkClient.deleteNode(nodePath);
-        log.warn("im server:{} node is offline", serverName);
+        log.warn("im server:{} node is offline", serverId);
     }
 }

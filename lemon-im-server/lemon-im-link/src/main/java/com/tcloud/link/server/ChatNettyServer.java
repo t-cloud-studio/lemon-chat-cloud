@@ -1,12 +1,14 @@
 package com.tcloud.link.server;
 
+import com.alibaba.fastjson2.JSON;
 import com.tcloud.idgenerator.handler.DistributedIdGenerator;
 import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.protocol.codec.ProtobufDecoder;
 import com.tcloud.im.protocol.codec.ProtobufEncoder;
+import com.tcloud.link.cache.ServerInstanceInfo;
 import com.tcloud.link.config.ImServerConfig;
 import com.tcloud.link.handler.LemonServerHandler;
-import com.tcloud.register.handler.ServerRegister;
+import com.tcloud.register.handler.server.ServerRegister;
 import com.tcloud.register.domain.core.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -19,6 +21,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +29,6 @@ import org.springframework.context.event.ContextClosedEvent;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -46,11 +48,13 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
     private ServerBootstrap bootstrap;
 
     @Autowired
-    private ImServerConfig chatServerConfig;
+    private ImServerConfig imServerConfig;
     @Autowired
     private ServerRegister serverRegister;
     @Autowired
     private DistributedIdGenerator idGenerator;
+    @Value("${spring.application.name}")
+    private String applicationName;
 
 
     @PostConstruct
@@ -58,14 +62,14 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         // 监听线程组
         bossGroup = new NioEventLoopGroup(1);
         // 工作线程组
-        workGroup = new NioEventLoopGroup(chatServerConfig.getWorkGroupCount());
+        workGroup = new NioEventLoopGroup(imServerConfig.getWorkGroupCount());
         // 引导启动线程组
         bootstrap = new ServerBootstrap();
         //3 设置监听端口
         String ip = NetUtil.getHostAddress();
         bootstrap.group(bossGroup, workGroup)
                 // 绑定ip和端口
-                .localAddress(ip, chatServerConfig.getPort())
+                .localAddress(ip, imServerConfig.getPort())
                 // keepalive
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 // allocator
@@ -87,28 +91,41 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
         // 获取异步绑定端口的 CompletableFuture
         CompletableFuture<Integer> bindPortFuture = new CompletableFuture<>();
         // 执行端口绑定
-        bind(bootstrap, ip, chatServerConfig.getPort(), bindPortFuture);
+        bind(bootstrap, ip, imServerConfig.getPort(), bindPortFuture);
         // 获取绑定端口
         Integer bindPort = bindPortFuture.get();
         // 服务注册
-        this.registerServer(ip, bindPort, chatServerConfig.getServerName());
+        this.registerServer(ip, bindPort, applicationName);
         // print banner
         printBanner();
     }
 
-    private void registerServer(String ip, Integer bindPort, String serverName) throws ExecutionException, InterruptedException {
+    /**
+     * 注册服务
+     *
+     * @param ip        ip地址
+     * @param bindPort  绑定端口号
+     * @param applicationName    服务名称
+     */
+    private void registerServer(String ip, Integer bindPort, String applicationName) {
+        long serverId = idGenerator.generateId();
         Server server = Server.builder()
                 .port(bindPort)
                 .ip(ip)
-                .serverId(idGenerator.generateId())
+                .serverId(serverId)
                 .connections(new AtomicInteger(0))
-                .name(serverName)
+                .name(applicationName)
                 .build();
-        serverRegister.registerServer(server);
+        serverRegister.register(server);
+        ServerInstanceInfo instanceInfo = ServerInstanceInfo.initInstance(serverId, server);
+        log.info("server:{} is already register", JSON.toJSON(instanceInfo));
     }
 
+    /**
+     * 打印banner
+     */
     private void printBanner() {
-        if (!chatServerConfig.isPrintBanner()) {
+        if (!imServerConfig.isPrintBanner()) {
             return;
         }
         String banner = ".-.   .---..-.-.-..----..-..-.\n" +
@@ -145,6 +162,9 @@ public class ChatNettyServer implements ApplicationListener<ContextClosedEvent> 
      */
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
-        serverRegister.offlineServer(chatServerConfig.getServerName());
+        String applicationName = event.getApplicationContext().getApplicationName();
+        Long serverId = ServerInstanceInfo.instance.getServerId();
+        serverRegister.offline(serverId);
+        log.info("{} server is offline", applicationName);
     }
 }

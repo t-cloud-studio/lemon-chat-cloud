@@ -29,9 +29,6 @@ public class ImGatewayConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (Objects.isNull(policy)){
-            policy = BalancePolicyEnum.ROUND_ROBIN;
-        }
         if (BalancePolicyEnum.WEIGHT.equals(policy) && Objects.isNull(weight)){
             throw new NullPointerException("please set the weight");
         }

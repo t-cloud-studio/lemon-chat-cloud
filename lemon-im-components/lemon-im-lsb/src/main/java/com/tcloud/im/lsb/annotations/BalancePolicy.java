@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 public @interface BalancePolicy {
 
 
-    BalancePolicyEnum policy() default BalancePolicyEnum.ROUND_ROBIN;
+    BalancePolicyEnum policy() default BalancePolicyEnum.MIN_CONNECTION;
 
 
 

@@ -13,7 +13,7 @@ public class WeChatLoginHandler extends AbstractLoginHandler {
     @Override
     public LoginUser doLoginAction(BaseLoginRequest loginRequest) {
         WeChatLoginRequest request = (WeChatLoginRequest)loginRequest;
-
+    
         return null;
     }
 }

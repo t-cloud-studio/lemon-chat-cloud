@@ -1,4 +1,4 @@
-package com.tcloud.register.handler;
+package com.tcloud.register.handler.client;
 
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;

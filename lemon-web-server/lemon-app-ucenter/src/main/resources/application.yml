@@ -1,0 +1,12 @@
+server:
+  port: 9000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://124.223.178.180:13601/joy_chat?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    username: joy_chat_dev
+    password: b5PL6XwJT2nMZPNz
+  data:
+    redis:
+      host:

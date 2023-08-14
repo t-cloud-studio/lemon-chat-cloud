@@ -1,4 +1,4 @@
-package com.tcloud.register.handler;
+package com.tcloud.register.handler.server;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.CharSequenceUtil;

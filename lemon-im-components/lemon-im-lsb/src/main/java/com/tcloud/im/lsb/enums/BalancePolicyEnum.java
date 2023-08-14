@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum BalancePolicyEnum {
     /**
      * 轮询
+     * 不建议使用改负载算法，因为IM的特性，会出现频繁断开和连接的场景，可能导致某台服务器连接数过大，宕机
      */
     ROUND_ROBIN,
     /**
@@ -17,6 +18,11 @@ public enum BalancePolicyEnum {
     /**
      * 随机
      */
-    RANDOM;
+    RANDOM,
+    /**
+     * 最小连接数
+     */
+    MIN_CONNECTION
+    ;
 
 }

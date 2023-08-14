@@ -1,12 +1,12 @@
 package com.tcloud.im.lsb.config;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.google.common.collect.Lists;
 import com.tcloud.im.lsb.annotations.BalancePolicy;
 import com.tcloud.im.lsb.policy.AbstractBalancePolicy;
+import com.tcloud.im.lsb.policy.impl.MinConnectionBalancePolicyImpl;
 import com.tcloud.im.lsb.policy.impl.RoundRobinBalancePolicyImpl;
 import com.tcloud.register.domain.core.Server;
-import com.tcloud.register.handler.ServerManager;
+import com.tcloud.register.handler.server.ServerManager;
 import com.tcloud.zkclient.cli.ZkClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class LoadBalanceHandlerConfiguration {
 
     @Autowired
     private ServerManager serverManager;
-
     @Autowired
     private List<AbstractBalancePolicy> policies;
     @Autowired
     private ImGatewayConfiguration gatewayConfiguration;
 
     @PostConstruct
+    @ConditionalOnBean(AbstractBalancePolicy.class)
     public void initPolicy(){
         List<Server> allServers = serverManager.getAllServers();
         AbstractBalancePolicy.setServers(allServers);
@@ -36,14 +36,14 @@ public class LoadBalanceHandlerConfiguration {
 
     /**
      * 加载负载策略
-     * @return
+     * @return 负载均衡策略
      */
     @Bean
     public AbstractBalancePolicy balancePolicy(){
         return policies.stream().filter(p -> {
             BalancePolicy annotation = p.getClass().getAnnotation(BalancePolicy.class);
             return gatewayConfiguration.getPolicy().equals(annotation.policy());
-        }).findAny().orElse(SpringUtil.getBean(RoundRobinBalancePolicyImpl.class));
+        }).findAny().orElse(SpringUtil.getBean(MinConnectionBalancePolicyImpl.class));
     }
 
 

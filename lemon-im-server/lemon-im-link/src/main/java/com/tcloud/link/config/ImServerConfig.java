@@ -22,10 +22,6 @@ public class ImServerConfig implements InitializingBean {
      */
     private Integer port;
     /**
-     * 服务名称
-     */
-    private String serverName;
-    /**
      * 打印banner
      */
     private boolean printBanner = true;
@@ -43,8 +39,5 @@ public class ImServerConfig implements InitializingBean {
             this.port = CoreConstant.DEFAULT_PORT;
         }
 
-        if (CharSequenceUtil.isBlank(serverName)){
-            throw new NullPointerException("serverName must not be null");
-        }
     }
 }
