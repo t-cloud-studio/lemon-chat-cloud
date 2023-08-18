@@ -4,7 +4,6 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.tcloud.im.lsb.annotations.BalancePolicy;
 import com.tcloud.im.lsb.policy.AbstractBalancePolicy;
 import com.tcloud.im.lsb.policy.impl.MinConnectionBalancePolicyImpl;
-import com.tcloud.im.lsb.policy.impl.RoundRobinBalancePolicyImpl;
 import com.tcloud.register.domain.core.Server;
 import com.tcloud.register.handler.server.ServerManager;
 import com.tcloud.zkclient.cli.ZkClient;
@@ -25,7 +24,7 @@ public class LoadBalanceHandlerConfiguration {
     @Autowired
     private List<AbstractBalancePolicy> policies;
     @Autowired
-    private ImGatewayConfiguration gatewayConfiguration;
+    private ImBalanceConfiguration balanceConfiguration;
 
     @PostConstruct
     @ConditionalOnBean(AbstractBalancePolicy.class)
@@ -42,7 +41,7 @@ public class LoadBalanceHandlerConfiguration {
     public AbstractBalancePolicy balancePolicy(){
         return policies.stream().filter(p -> {
             BalancePolicy annotation = p.getClass().getAnnotation(BalancePolicy.class);
-            return gatewayConfiguration.getPolicy().equals(annotation.policy());
+            return balanceConfiguration.getPolicy().equals(annotation.policy());
         }).findAny().orElse(SpringUtil.getBean(MinConnectionBalancePolicyImpl.class));
     }
 

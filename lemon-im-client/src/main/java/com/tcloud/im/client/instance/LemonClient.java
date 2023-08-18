@@ -25,7 +25,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class LemonClient {
 
-
+    /**
+     * 主机
+     */
+    private String host;
+    /**
+     * 端口
+     */
+    private Integer port;
     private NioEventLoopGroup workerGroup;
     private Bootstrap bootstrap;
 

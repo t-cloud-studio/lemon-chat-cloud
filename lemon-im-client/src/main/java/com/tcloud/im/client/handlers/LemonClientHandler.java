@@ -24,7 +24,7 @@ public class LemonClientHandler extends SimpleChannelInboundHandler<LemonMessage
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, LemonMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, LemonMessage msg) throws Exception {
         Command cmdType = Command.load(msg.getCmd());
         if(cmdType == null){
             log.error("param error: cmd");
