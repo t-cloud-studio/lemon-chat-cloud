@@ -7,22 +7,19 @@
         <artifactId>lemon-web-server</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>lemon-web-admin</artifactId>
+    <artifactId>lemon-common</artifactId>
     <version>1.0.0</version>
-    <name>lemon-web-admin</name>
-    <description>lemon-web-admin</description>
-    <packaging>pom</packaging>
+    <name>lemon-web-common</name>
+    <description>lemon-web-common</description>
     <properties>
         <java.version>17</java.version>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

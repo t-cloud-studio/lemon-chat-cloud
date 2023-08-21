@@ -21,8 +21,6 @@
         <module>lemon-im-register</module>
         <module>lemon-im-router</module>
         <module>lemon-im-lsb</module>
-        <module>lemon-im-authentication</module>
-        <module>lemon-im-cmd</module>
     </modules>
 
     <properties>

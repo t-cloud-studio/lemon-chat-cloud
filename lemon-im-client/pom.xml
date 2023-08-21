@@ -33,10 +33,5 @@
             <artifactId>lemon-im-protocol</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.tcloud.im</groupId>
-            <artifactId>lemon-im-cmd</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 </project>

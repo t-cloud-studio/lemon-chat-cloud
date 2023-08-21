@@ -28,7 +28,6 @@
         <module>lemon-im-server</module>
         <module>lemon-components</module>
         <module>lemon-web-server</module>
-        <module>lemon-gateway</module>
         <module>lemon-im-components</module>
         <module>lemon-im-client</module>
     </modules>
