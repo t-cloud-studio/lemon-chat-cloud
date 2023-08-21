@@ -9,8 +9,8 @@
     </parent>
     <groupId>com.tcloud</groupId>
     <artifactId>lemon-ucenter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>lemon-client-ucenter</name>
+    <version>1.0.0</version>
+    <name>lemon-ucenter</name>
     <description>lemon-客户端用户中心</description>
     <properties>
         <java.version>17</java.version>
