@@ -4,8 +4,8 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.tcloud.im.lsb.annotations.BalancePolicy;
 import com.tcloud.im.lsb.policy.AbstractBalancePolicy;
 import com.tcloud.im.lsb.policy.impl.MinConnectionBalancePolicyImpl;
-import com.tcloud.register.domain.core.Server;
-import com.tcloud.register.handler.server.ServerManager;
+import com.tcloud.register.domain.ServerInfo;
+import com.tcloud.register.manager.server.ServerManager;
 import com.tcloud.zkclient.cli.ZkClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class LoadBalanceHandlerConfiguration {
     @PostConstruct
     @ConditionalOnBean(AbstractBalancePolicy.class)
     public void initPolicy(){
-        List<Server> allServers = serverManager.getAllServers();
+        List<ServerInfo> allServers = serverManager.getAllServers();
         AbstractBalancePolicy.setServers(allServers);
     }
 

@@ -18,7 +18,7 @@
     <modules>
         <module>lemon-web-admin</module>
         <module>lemon-web-common</module>
-        <module>lemon-app-ucenter</module>
+        <module>lemon-client-ucenter</module>
     </modules>
     <properties>
         <java.version>17</java.version>

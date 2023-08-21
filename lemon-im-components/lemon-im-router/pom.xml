@@ -10,7 +10,7 @@
     <artifactId>lemon-im-router</artifactId>
     <version>1.0.0</version>
     <name>lemon-im-router</name>
-    <description>消息转发功能模块</description>
+    <description>消息路由转发功能模块</description>
     <properties>
         <java.version>17</java.version>
     </properties>

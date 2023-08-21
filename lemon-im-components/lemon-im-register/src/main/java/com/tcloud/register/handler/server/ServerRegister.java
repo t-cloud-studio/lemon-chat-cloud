@@ -1,7 +1,6 @@
 package com.tcloud.register.handler.server;
 
-import cn.hutool.core.text.StrPool;
-import com.tcloud.register.domain.core.Server;
+import com.tcloud.register.domain.ServerInfo;
 import com.tcloud.zkclient.cli.ZkClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @author Anker
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class ServerRegister {
 
@@ -25,7 +23,7 @@ public class ServerRegister {
      *
      * @param server 服务信息
      */
-    public void register(Server server) {
+    public void register(ServerInfo server) {
         // 组装节点
         String nodePath = zkClient.buildPath(server.getServerId().toString());
         if (zkClient.nodeExists(nodePath)){

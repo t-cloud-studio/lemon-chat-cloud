@@ -1,7 +1,7 @@
 package com.tcloud.im.lsb.policy;
 
 import cn.hutool.core.collection.CollUtil;
-import com.tcloud.register.domain.core.Server;
+import com.tcloud.register.domain.ServerInfo;
 import lombok.Data;
 
 import java.util.List;
@@ -18,21 +18,21 @@ public abstract class AbstractBalancePolicy {
     /**
      * 所有服务
      */
-    private static List<Server> servers;
+    private static List<ServerInfo> servers;
 
 
-    public abstract Server balance();
+    public abstract ServerInfo balance();
 
     /**
      * 新增服务时
      * @param server
      */
-    public synchronized void addServer(Server server) {
+    public synchronized void addServer(ServerInfo server) {
         if (CollUtil.isEmpty(servers)){
             servers.add(server);
             return;
         }
-        Server existsSever = servers.stream().filter(s -> server.getServerId().equals(s.getServerId())).findAny().orElse(null);
+        ServerInfo existsSever = servers.stream().filter(s -> server.getServerId().equals(s.getServerId())).findAny().orElse(null);
         if (Objects.isNull(existsSever)){
             servers.add(server);
         }
@@ -47,22 +47,22 @@ public abstract class AbstractBalancePolicy {
         if (CollUtil.isEmpty(servers)){
             return;
         }
-        Server server = servers.stream().filter(s -> serverId.equals(s.getServerId())).findAny().orElse(null);
+        ServerInfo server = servers.stream().filter(s -> serverId.equals(s.getServerId())).findAny().orElse(null);
         if (Objects.isNull(server)){
             return;
         }
         servers.remove(server);
     }
 
-    public static void removeServer(Server server) {
+    public static void removeServer(ServerInfo server) {
         servers.remove(server);
     }
 
-    public static void setServers(List<Server> allServers) {
+    public static void setServers(List<ServerInfo> allServers) {
         servers = allServers;
     }
 
-    protected List<Server> getServers() {
+    protected List<ServerInfo> getServers() {
         return servers;
     }
 }

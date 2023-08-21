@@ -48,6 +48,7 @@
         <mbp.version>3.5.3.2</mbp.version>
         <druid.version>1.2.14</druid.version>
         <mysql-driver.version>8.0.30</mysql-driver.version>
+        <knife4j.version>4.3.0</knife4j.version>
     </properties>
 
     <dependencyManagement>
@@ -132,6 +133,12 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-driver.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

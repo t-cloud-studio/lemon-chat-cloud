@@ -2,8 +2,8 @@ package com.tcloud.im.router.worker.impl;
 
 import com.tcloud.im.protocol.msg.LemonMessage;
 import com.tcloud.im.router.worker.RouterWorker;
-import com.tcloud.register.domain.core.ClientSession;
-import com.tcloud.register.handler.client.ClientSessionManager;
+import com.tcloud.register.domain.ClientRouteServerInfo;
+import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +14,16 @@ import java.util.Objects;
 public class MessageRouterWorker extends RouterWorker {
 
 
-    private final ClientSessionManager sessionManager;
+    private final ClientRegisterRelateManager sessionManager;
 
     @Override
     public boolean route(Long userId, LemonMessage message) {
-        ClientSession session = sessionManager.find(userId);
+        ClientRouteServerInfo session = sessionManager.find(userId);
         if (Objects.nonNull(session)){
-
+            throw new NullPointerException("client register info is null!!");
         }
-        session.getChannel().writeAndFlush(message);
+        // TODO TCP消息转发
+
         return false;
     }
 }

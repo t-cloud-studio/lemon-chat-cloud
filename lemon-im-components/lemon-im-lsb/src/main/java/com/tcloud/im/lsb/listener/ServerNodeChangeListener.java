@@ -1,9 +1,8 @@
 package com.tcloud.im.lsb.listener;
 
-import com.alibaba.fastjson2.JSON;
 import com.tcloud.im.common.utils.JsonUtil;
 import com.tcloud.im.lsb.policy.AbstractBalancePolicy;
-import com.tcloud.register.domain.core.Server;
+import com.tcloud.register.domain.ServerInfo;
 import com.tcloud.zkclient.cli.ZkClient;
 import com.tcloud.zkclient.watcher.ZkChildWatcherListener;
 import lombok.extern.slf4j.Slf4j;
@@ -52,12 +51,12 @@ public class ServerNodeChangeListener extends ZkChildWatcherListener {
         }
         if (type.equals(Type.NODE_CREATED)) {
             byte[] data = childData1.getData();
-            Server server = JsonUtil.parseByteToObject(data, Server.class);
+            ServerInfo server = JsonUtil.parseByteToObject(data, ServerInfo.class);
             log.info("the server :{} is register!!", server);
             balancePolicy.addServer(server);
         } else if (type.equals(Type.NODE_DELETED)) {
             byte[] data = childData.getData();
-            Server server = JsonUtil.parseByteToObject(data, Server.class);
+            ServerInfo server = JsonUtil.parseByteToObject(data, ServerInfo.class);
             log.info("the server :{} is offline!!", server);
             balancePolicy.remove(server.getServerId());
         }

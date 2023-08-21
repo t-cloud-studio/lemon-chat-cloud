@@ -1,8 +1,9 @@
 package com.tcloud.im.server.cache;
 
 import com.google.common.collect.Maps;
-import com.tcloud.register.domain.core.ClientSession;
-import com.tcloud.register.domain.core.Server;
+import com.tcloud.register.domain.ClientRouteServerInfo;
+import com.tcloud.register.domain.ServerInfo;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.Data;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ public class ServerInstanceInfo {
     private Long serverId;
 
 
-    private Server server;
+    private ServerInfo server;
 
     /**
      * 当前服务器会话列表
@@ -28,12 +29,12 @@ public class ServerInstanceInfo {
      * @k userId
      * @v session
      */
-    private Map<Long, ClientSession> sessionMap = Maps.newConcurrentMap();
+    private Map<Long, NioSocketChannel> sessionMap = Maps.newConcurrentMap();
 
 
     public static volatile ServerInstanceInfo instance;
 
-    public ServerInstanceInfo(Long serverId, Server server) {
+    public ServerInstanceInfo(Long serverId, ServerInfo server) {
         this.serverId = serverId;
         this.server = server;
     }
@@ -41,7 +42,14 @@ public class ServerInstanceInfo {
     private ServerInstanceInfo() {
     }
 
-    public static ServerInstanceInfo initInstance(Long serverId, Server serverInfo) {
+    /**
+     * 初始化实例
+     *
+     * @param serverId      分布式id
+     * @param serverInfo    服务信息
+     * @return {@link ServerInstanceInfo} 实例
+     */
+    public static ServerInstanceInfo initInstance(Long serverId, ServerInfo serverInfo) {
         if (instance == null) {
             synchronized (ServerInstanceInfo.class) {
                 if (instance == null) {
@@ -56,13 +64,13 @@ public class ServerInstanceInfo {
      * 添加会话
      *
      * @param userId  用户id
-     * @param session 会话信息
+     * @param channel 会话信息
      */
-    public void addSession(Long userId, ClientSession session) {
-        if (Objects.isNull(session)) {
+    public void addSession(Long userId, NioSocketChannel channel) {
+        if (Objects.isNull(channel)) {
             throw new NullPointerException("the client session must not be null!!!");
         }
-        sessionMap.put(userId, session);
+        sessionMap.put(userId, channel);
     }
 
     /**
@@ -76,5 +84,15 @@ public class ServerInstanceInfo {
         }
         sessionMap.remove(userId);
     }
+
+
+    public String getHost() {
+        return server.getIp();
+    }
+
+    public Integer getPort() {
+        return server.getPort();
+    }
+
 
 }

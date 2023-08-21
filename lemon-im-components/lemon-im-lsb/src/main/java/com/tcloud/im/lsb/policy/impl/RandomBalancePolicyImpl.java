@@ -3,7 +3,7 @@ package com.tcloud.im.lsb.policy.impl;
 import com.tcloud.im.lsb.annotations.BalancePolicy;
 import com.tcloud.im.lsb.enums.BalancePolicyEnum;
 import com.tcloud.im.lsb.policy.AbstractBalancePolicy;
-import com.tcloud.register.domain.core.Server;
+import com.tcloud.register.domain.ServerInfo;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ import java.util.Random;
 public class RandomBalancePolicyImpl extends AbstractBalancePolicy {
 
     @Override
-    public Server balance() {
+    public ServerInfo balance() {
         if (super.getServers().isEmpty()) {
             return null;
         }
