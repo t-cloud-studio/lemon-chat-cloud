@@ -2,7 +2,6 @@ package com.tcloud.im.client.handlers;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson2.JSON;
-import com.tcloud.im.cmd.handlers.CmdHandlerProgress;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.protocol.msg.LemonMessage;
 import io.netty.channel.Channel;

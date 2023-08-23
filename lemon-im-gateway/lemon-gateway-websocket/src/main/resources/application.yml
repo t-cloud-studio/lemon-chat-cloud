@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: lemon-ws-gateway
+im:
+  server:
+    port: 9900
+    print-banner: true
+zookeeper:
+  url: localhost:2181
+  sessionTimeout: 2000
+  root: /lemon_server_node
