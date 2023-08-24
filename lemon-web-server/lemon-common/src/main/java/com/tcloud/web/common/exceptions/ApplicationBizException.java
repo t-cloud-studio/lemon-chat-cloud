@@ -1,6 +1,10 @@
 package com.tcloud.web.common.exceptions;
 
+import com.tcloud.web.common.enums.ResultCode;
+
 public class ApplicationBizException extends RuntimeException{
+
+    public final ResultCode CODE = ResultCode.FAILURE;
 
     public ApplicationBizException() {
         super();

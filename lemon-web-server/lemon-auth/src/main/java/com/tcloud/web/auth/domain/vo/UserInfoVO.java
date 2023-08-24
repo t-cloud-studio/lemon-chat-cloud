@@ -1,5 +1,8 @@
-package com.tcloud.web.auth.domain.entity;
+package com.tcloud.web.auth.domain.vo;
 
+import cn.hutool.http.useragent.Platform;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,76 +14,42 @@ import java.time.LocalDateTime;
  * 用户信息
  */
 @Data
-@TableName("user_info")
-public class UserInfo {
+public class UserInfoVO {
 
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
     /**
      * 头像
      */
     private String avatar;
     /**
-     * 个人介绍
-     */
-    private String personalProfile;
-
-    /**
-     * 账号
-     */
-    private String username;
-
-    /**
-     * 密码
-     */
-    private String cipher;
-
-    /**
      * 电话号码
      */
     private String phone;
-
     /**
      * 邮箱
      */
     private String email;
-
     /**
      * 昵称
      */
     private String nickname;
-
     /**
      * 性别：-1未知，0女，1男
      */
     private Integer gender;
-
     /**
-     * 状态：0正常，1禁用
+     * 登录ip地址
      */
-    private Integer status;
-
+    private String loginIp;
     /**
-     * 微信openId
+     * 登录介质
      */
-    private String openId;
-
+    private Platform platform;
     /**
-     * 最后登录时间
+     * 个人介绍
      */
-    private LocalDateTime lastLoginAt;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createdAt;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updatedAt;
+    private String personalProfile;
 }

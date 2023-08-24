@@ -1,13 +1,13 @@
 package com.tcloud.web.auth.service;
 
-import com.tcloud.web.auth.domain.request.login.BaseLoginRequest;
-import com.tcloud.web.auth.domain.vo.LoginUser;
+import com.tcloud.web.auth.domain.request.LoginRequest;
+import com.tcloud.web.auth.domain.vo.LoginResponse;
 
 public interface LoginService {
 
 
 
-    LoginUser login(BaseLoginRequest loginRequest);
+    LoginResponse login(LoginRequest loginRequest);
 
 
 

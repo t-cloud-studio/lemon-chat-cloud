@@ -1,0 +1,20 @@
+
+spring:
+  data:
+    redis:
+      host: 124.223.178.180
+      port: 16379
+      password: g136T1NKClmsW77eLl
+      database: 5
+  cloud:
+    gateway:
+      routes:
+        - id: route1
+          uri: https://baidu.com
+          predicates:
+            - Path=/example/**
+      exclude:
+        patterns:
+          - "/addd"
+server:
+  port: 9910

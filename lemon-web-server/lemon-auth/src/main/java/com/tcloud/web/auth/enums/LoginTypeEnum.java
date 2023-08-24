@@ -1,9 +1,9 @@
 package com.tcloud.web.auth.enums;
 
-import com.tcloud.web.auth.strategy.login.AbstractLoginHandler;
-import com.tcloud.web.auth.strategy.login.impl.CipherPairLoginHandler;
-import com.tcloud.web.auth.strategy.login.impl.MobilePhoneCaptchaLoginHandler;
-import com.tcloud.web.auth.strategy.login.impl.WeChatLoginHandler;
+import com.tcloud.web.auth.strategy.AbstractLoginHandler;
+import com.tcloud.web.auth.strategy.impl.CipherPairLoginHandler;
+import com.tcloud.web.auth.strategy.impl.MobilePhoneCaptchaLoginHandler;
+import com.tcloud.web.auth.strategy.impl.WeChatLoginHandler;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
