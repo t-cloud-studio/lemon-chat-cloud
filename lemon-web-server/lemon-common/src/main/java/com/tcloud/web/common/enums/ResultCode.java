@@ -17,12 +17,14 @@ public enum ResultCode implements IResultCode {
      * 操作成功
      */
     SUCCESS(2000, "操作成功"),
-
+    /**
+     * 参数错误
+     */
+    PARAM_ERROR(3001, "参数错误"),
     /**
      * 业务异常
      */
     FAILURE(9999, "业务异常"),
-
     /**
      * 请求未授权
      */

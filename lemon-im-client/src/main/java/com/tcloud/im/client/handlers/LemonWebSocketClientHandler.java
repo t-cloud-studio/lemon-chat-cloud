@@ -59,8 +59,8 @@ public class LemonWebSocketClientHandler extends SimpleChannelInboundHandler<Obj
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
-        Channel ch = channelHandlerContext.channel();
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+        Channel ch = ctx.channel();
         if (!handshake.isHandshakeComplete()) {
             handshake.finishHandshake(ch, (FullHttpResponse) msg);
             System.out.println("WebSocket Client connected!");
@@ -78,7 +78,7 @@ public class LemonWebSocketClientHandler extends SimpleChannelInboundHandler<Obj
                 log.error("param error: cmd");
                 throw new IllegalStateException("param error: cmd");
             }
-            SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmd, lemonMessage);
+            SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmd, lemonMessage, ctx);
         } else if (msg instanceof PongWebSocketFrame) {
             System.out.println("WebSocket Client received pong");
         } else if (msg instanceof CloseWebSocketFrame) {
