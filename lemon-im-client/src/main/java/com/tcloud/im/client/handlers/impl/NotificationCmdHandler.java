@@ -1,0 +1,26 @@
+package com.tcloud.im.client.handlers.impl;
+
+import com.tcloud.im.client.handlers.ICmdHandler;
+import com.tcloud.im.common.annotations.CmdHandler;
+import com.tcloud.im.common.enums.Command;
+import com.tcloud.im.protocol.msg.LemonMessage;
+import io.netty.channel.ChannelHandlerContext;
+
+/**
+ * @author evans
+ * @description
+ * @date 2023/8/3
+ */
+@CmdHandler(cmd = Command.NOTIFICATION)
+public class NotificationCmdHandler implements ICmdHandler {
+
+
+    @Override
+    public void receiveMsg(LemonMessage message, ChannelHandlerContext ctx) {
+    }
+
+    @Override
+    public void sendMsg(LemonMessage message) {
+
+    }
+}

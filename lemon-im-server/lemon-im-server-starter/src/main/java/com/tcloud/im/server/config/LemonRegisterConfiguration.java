@@ -5,6 +5,7 @@ import com.tcloud.register.handler.client.ClientRelationMapRegister;
 import com.tcloud.register.handler.server.ServerRegister;
 import com.tcloud.zkclient.cli.ZkClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,12 +19,14 @@ public class LemonRegisterConfiguration {
     private RedisClient redisClient;
 
     @Bean
+    @ConditionalOnMissingBean(ClientRelationMapRegister.class)
     public ClientRelationMapRegister clientRelationMapRegister(){
         return new ClientRelationMapRegister(zkClient, redisClient);
     }
 
 
     @Bean
+    @ConditionalOnMissingBean(ServerRegister.class)
     public ServerRegister serverRegister(){
         return new ServerRegister(zkClient);
     }

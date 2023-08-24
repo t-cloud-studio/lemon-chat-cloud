@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @author Anker
  */
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class ServerRegister {
 

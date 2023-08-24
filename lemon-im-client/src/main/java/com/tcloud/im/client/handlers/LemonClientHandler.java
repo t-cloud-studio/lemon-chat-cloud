@@ -1,7 +1,6 @@
 package com.tcloud.im.client.handlers;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.tcloud.im.cmd.handlers.CmdHandlerProgress;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.common.exceptions.UnKnowCmdException;
 import com.tcloud.im.protocol.msg.LemonMessage;
@@ -30,6 +29,6 @@ public class LemonClientHandler extends SimpleChannelInboundHandler<LemonMessage
             log.error("param error: cmd");
             throw new UnKnowCmdException("param error: cmd");
         }
-        SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmdType, msg);
+        SpringUtil.getBean(CmdHandlerProgress.class).executeReceive(cmdType, msg, ctx);
     }
 }
