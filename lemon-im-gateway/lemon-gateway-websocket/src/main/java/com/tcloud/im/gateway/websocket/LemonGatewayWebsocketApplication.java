@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author evans
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.tcloud")
 public class LemonGatewayWebsocketApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,8 @@
 server:
   port: 9910
 spring:
+  application:
+    name: lemon-gateway
   data:
     redis:
       host: 124.223.178.180
@@ -8,12 +10,29 @@ spring:
       password: g136T1NKClmsW77eLl
       database: 5
   cloud:
+    nacos:
+      discovery:
+        server-addr: http://mse-e9057ed0-p.nacos-ans.mse.aliyuncs.com:8848
+        namespace: 4647efcf-20e9-4b16-a6ad-13499c61e095
+        access-key: LTAI5tGVMfSUZLZzDVWL2vUt
+        secret-key: GMMQyT4rexMfXHIFOPyztzxLQ8lX19
     gateway:
+      # 开启服务路由
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
       routes:
-        - id: route1
-          uri: https://baidu.com
+        - id: lemon-auth
+          uri: lb://lemon-auth
           predicates:
-            - Path=/example/**
+            - Path=/*/auth/**
+        - id: lemon-admin
+          uri: lb://lemon-admin
+          predicates:
+            - Path=/*/admin/**
       exclude:
         patterns:
-          - "/addd"
+          - "/web/auth/user_info/login_action"
+
+
