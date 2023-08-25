@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class ExcludePatternConfig {
     /**
      * 放行路径
      */
-    private List<String> patterns;
+    private List<String> patterns = new ArrayList<>();
 
 
 
