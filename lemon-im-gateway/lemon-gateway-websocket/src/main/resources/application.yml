@@ -3,6 +3,7 @@ spring:
     name: lemon-ws-gateway
 im:
   server:
+    wsPath: /ws-server
     port: 9900
     print-banner: true
 zookeeper:
