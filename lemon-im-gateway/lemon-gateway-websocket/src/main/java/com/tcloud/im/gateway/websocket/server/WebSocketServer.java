@@ -5,25 +5,13 @@ import com.tcloud.idgenerator.handler.DistributedIdGenerator;
 import com.tcloud.im.common.utils.NetUtil;
 import com.tcloud.im.gateway.websocket.cache.ServerInstanceInfo;
 import com.tcloud.im.gateway.websocket.config.WebSocketServerConfig;
-import com.tcloud.im.gateway.websocket.handlers.AuthenticationHandler;
-import com.tcloud.im.gateway.websocket.handlers.ChatFunctionHandlerSelector;
 import com.tcloud.im.gateway.websocket.handlers.WebSocketServerInitializer;
 import com.tcloud.register.domain.ServerInfo;
 import com.tcloud.register.handler.server.ServerRegister;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.http.HttpClientCodec;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
-import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientCompressionHandler;
-import io.netty.handler.timeout.IdleStateHandler;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,28 +68,8 @@ public class WebSocketServer implements ApplicationListener<ContextClosedEvent> 
         bootstrap.group(bossGroup, workGroup)
                 // set nio type channel
                 .channel(NioServerSocketChannel.class)
+                // SocketServer channel 初始化器
                 .childHandler(new WebSocketServerInitializer(imServerConfig.getWsPath()));
-                // set chain line
-//                .childHandler(new ChannelInitializer<NioSocketChannel>() {
-//                    @Override
-//                    protected void initChannel(NioSocketChannel socketChannel) throws Exception {
-//                        socketChannel.pipeline()
-//                                //  HTTP解码
-//                                .addLast(new HttpServerCodec())
-//                                // Http对象聚合
-//                                .addLast(new HttpObjectAggregator(1024 * 60))
-////                                // WebSocket 消息压缩
-//                                .addLast( WebSocketClientCompressionHandler.INSTANCE)
-//                                // WebSocket 协议处理
-//                                .addLast(new WebSocketServerProtocolHandler(imServerConfig.getWsPath()))
-//                                //  空闲状态程序处理
-//                                .addLast(new IdleStateHandler(60, 0, 0))
-//                                // 认证
-//                                .addLast(new AuthenticationHandler())
-//                                // 其它对话函数处理器
-//                                .addLast(new ChatFunctionHandlerSelector());
-//                    }
-//                });
         // 获取异步绑定端口的 CompletableFuture
         CompletableFuture<Integer> bindPortFuture = new CompletableFuture<>();
         // 执行端口绑定

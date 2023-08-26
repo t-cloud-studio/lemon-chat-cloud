@@ -24,5 +24,9 @@ public class ClientRouteServerInfo {
      * 服务端口信息
      */
     private int port;
+    /**
+     * http 端口
+     */
+    private int httpPort;
 
 }

@@ -23,7 +23,7 @@ public class DistributedIdGenerator {
     public long generateId() {
         // 构造一个临时有序节点
         String sequentialPath = zkClient.createEphemeralSeqNode(path);
-        String[] parts = sequentialPath.split("/");
+        String[] parts = sequentialPath.split("-");
         long sequenceId = Long.parseLong(parts[parts.length - 1]);
         long distributeId = idGenerator.generateId() << 10;
         return distributeId | sequenceId;

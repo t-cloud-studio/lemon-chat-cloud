@@ -3,11 +3,10 @@ package com.tcloud.im.gateway.websocket.handlers;
 import cn.hutool.extra.spring.SpringUtil;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.gateway.websocket.domain.core.WsMessage;
-import io.netty.channel.ChannelHandler;
+import com.tcloud.im.gateway.websocket.utils.WsMsgUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import org.springframework.stereotype.Component;
 
 /**
  * @author evans
@@ -22,9 +21,10 @@ public class ChatFunctionHandlerSelector extends SimpleChannelInboundHandler<Web
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame msg) throws Exception {
-        System.out.println(msg.content().readByte());
-//        Command cmd = Command.load();
-//        SpringUtil.getBean(CmdHandlerProgress.class).execute(cmd, msg, ctx);
+        // 将消息转换成前后端约定的消息类型
+        WsMessage wsMessage = WsMsgUtil.covertTextJsonFrameToWsMsg(msg);
+        Command cmd = Command.load(wsMessage.getCmd());
+        SpringUtil.getBean(CmdHandlerProgress.class).execute(cmd, wsMessage, ctx);
     }
 
 
