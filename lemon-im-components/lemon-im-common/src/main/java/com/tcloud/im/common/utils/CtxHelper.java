@@ -10,6 +10,11 @@ import io.netty.handler.codec.http.websocketx.WebSocketCloseStatus;
 import io.netty.util.AttributeKey;
 import lombok.experimental.UtilityClass;
 
+import java.util.Map;
+import java.util.Objects;
+
+import static com.tcloud.im.common.constants.ChannelAttrKeys.PATH_PARAMETERS_KEY;
+
 /**
  * Ctx 辅助器
  *
@@ -98,7 +103,7 @@ public class CtxHelper {
      * @param content   内容
      */
     public void writeJson(ChannelHandlerContext ctx, Object content){
-        String jsonString = JSON.toJSONString(content);
+        String jsonString = JsonUtil.toJson(content);
         writeText(ctx, jsonString);
     }
 
@@ -141,5 +146,23 @@ public class CtxHelper {
      */
     public static <T> T getAttr(ChannelHandlerContext ctx, AttributeKey<T> attrKey) {
         return ctx.channel().attr(attrKey).get();
+    }
+
+
+
+    /**
+     * 设置Attr
+     *
+     * @param ctx       channel
+     * @param attrKey   key
+     * @param data      var
+     * @param <T>       泛型
+     */
+    public static String getStrPathParam(ChannelHandlerContext ctx,String k) {
+        Map<String, String> attr = getAttr(ctx, PATH_PARAMETERS_KEY);
+        if (Objects.isNull(attr)){
+            return null;
+        }
+        return attr.get(k);
     }
 }

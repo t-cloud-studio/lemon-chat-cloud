@@ -1,6 +1,6 @@
 package com.tcloud.im.gateway.websocket.handlers;
 
-import com.tcloud.im.gateway.websocket.domain.core.WsMessage;
+import com.tcloud.im.protocol.msg.WsMessage;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**

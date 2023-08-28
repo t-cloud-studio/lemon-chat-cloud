@@ -2,7 +2,7 @@ package com.tcloud.im.gateway.websocket.handlers;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.tcloud.im.common.enums.Command;
-import com.tcloud.im.gateway.websocket.domain.core.WsMessage;
+import com.tcloud.im.protocol.msg.WsMessage;
 import com.tcloud.im.gateway.websocket.utils.WsMsgUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

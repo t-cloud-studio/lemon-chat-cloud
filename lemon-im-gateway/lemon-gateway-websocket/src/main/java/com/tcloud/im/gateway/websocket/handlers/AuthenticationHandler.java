@@ -1,36 +1,46 @@
 package com.tcloud.im.gateway.websocket.handlers;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import com.tcloud.feign.api.domain.vo.UserInfoVO;
-import com.tcloud.feign.api.modules.user.UserInfoFeignService;
 import com.tcloud.im.common.enums.WsRespCode;
 import com.tcloud.im.common.utils.CtxHelper;
+import com.tcloud.im.gateway.websocket.cache.ServerInstanceInfo;
 import com.tcloud.im.gateway.websocket.cache.SocketSessionCache;
 import com.tcloud.im.gateway.websocket.utils.SaTokenHandler;
+import com.tcloud.register.domain.ClientRouteServerInfo;
+import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
 
 import static com.tcloud.im.common.constants.ChannelAttrKeys.PATH_PARAMETERS_KEY;
-import static com.tcloud.im.common.constants.ChannelAttrKeys.USER_INFO_KEY;
 
 /**
  * @author evans
  * @description
  * @date 2023/8/23
  */
+@Slf4j
 @ChannelHandler.Sharable
 public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
 
+    private final ClientRegisterRelateManager clientRegisterRelateManager;
+
+    public AuthenticationHandler(ClientRegisterRelateManager clientRegisterRelateManager) {
+        this.clientRegisterRelateManager = clientRegisterRelateManager;
+    }
+
+    private final ServerInstanceInfo instanceInfo = ServerInstanceInfo.instance;
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 获取连接的URL
         Map<String, String> parameters = CtxHelper.getAttr(ctx, PATH_PARAMETERS_KEY);
         if (MapUtil.isEmpty(parameters)){
@@ -41,23 +51,38 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
         Long userId = SaTokenHandler.getUserIdByToken(token);
         if (Objects.isNull(userId)){
             // 用户未登录
-            CtxHelper.writeFailAndClose(ctx, WsRespCode.BIZ_ERROR, "请登录!!");
+            CtxHelper.writeFailAndClose(ctx, WsRespCode.UN_AUTHORIZED, "请登录!!");
+            return;
+        }
+        // 查询用户路由信息是否为本机器
+        ClientRouteServerInfo routeServerInfo = clientRegisterRelateManager.find(userId);
+        if (Objects.isNull(routeServerInfo)){
+            CtxHelper.writeFailAndClose(ctx, WsRespCode.UN_AUTHORIZED, "注册表注册失败!!");
+            return;
+        }
+        if (!routeServerInfo.getIp().equals(instanceInfo.getHost())){
+            CtxHelper.writeFailAndClose(ctx, WsRespCode.UN_AUTHORIZED, "注册表注册失败!!");
+            return;
         }
         // feign 调用查询用户信息
-        UserInfoVO loginUserInfo = SpringUtil.getBean(UserInfoFeignService.class).getLoginUserInfo(userId);
-        CtxHelper.setAttr(ctx, USER_INFO_KEY, loginUserInfo);
+//        UserInfoVO loginUserInfo = SpringUtil.getBean(UserInfoFeignService.class).getLoginUserInfo(userId);
+//        CtxHelper.setAttr(ctx, USER_INFO_KEY, loginUserInfo);
         // 缓存channel到本地
         SocketSessionCache.addSession(userId, ctx);
-        CtxHelper.writeSuccess(ctx, "Authentication Success!!");
+        log.info("user: >> {} is connected on time:{} | session id is :{}", userId, DateUtil.now(), ctx.channel().id());
+        super.channelRead(ctx, msg);
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+        // 用户是否登录
+        if (!SaTokenHandler.isLogin(ctx)){
+            // 用户未登录
+            CtxHelper.writeFailAndClose(ctx, WsRespCode.BIZ_ERROR, "请登录!!");
+        }
         ctx.fireChannelRead(frame);
     }
 
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        // 用户断开连接, 移除本地缓存
-        UserInfoVO attr = (UserInfoVO) CtxHelper.getAttr(ctx, USER_INFO_KEY);
-        SocketSessionCache.removeSession(attr.getId());
-        CtxHelper.close(ctx);
-    }
+
 }

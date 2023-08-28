@@ -5,6 +5,7 @@ import com.tcloud.im.common.utils.PathParamResolver;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.util.ReferenceCountUtil;
 
 import java.util.Map;
 
@@ -30,6 +31,8 @@ public class WsPathParamResolveHandler extends ChannelInboundHandlerAdapter {
             // 将uri恢复为正常的
             httpRequest.setUri(webSocketPath);
         }
+        // 重置引用
+        ReferenceCountUtil.retain(msg);
         super.channelRead(ctx, msg);
     }
 

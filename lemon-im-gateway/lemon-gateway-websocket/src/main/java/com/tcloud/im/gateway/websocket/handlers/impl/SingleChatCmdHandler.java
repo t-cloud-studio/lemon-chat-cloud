@@ -4,7 +4,7 @@ import com.tcloud.im.common.annotations.CmdHandler;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.common.utils.CtxHelper;
 import com.tcloud.im.gateway.websocket.cache.SocketSessionCache;
-import com.tcloud.im.gateway.websocket.domain.core.WsMessage;
+import com.tcloud.im.protocol.msg.WsMessage;
 import com.tcloud.im.gateway.websocket.handlers.IChatCmdHandler;
 import com.tcloud.register.domain.ClientRouteServerInfo;
 import com.tcloud.register.manager.client.ClientRegisterRelateManager;
@@ -37,7 +37,6 @@ public class SingleChatCmdHandler implements IChatCmdHandler {
             CtxHelper.writeSuccess(toUserChannel, message);
             // 消息入库, 等待签收
         } else {
-            ClientRouteServerInfo serverInfo = registerRelateManager.find(toUser);
             // TODO TCP 或 HTTP 将消息进行转发到目标服务器
 
         }

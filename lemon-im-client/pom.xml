@@ -13,6 +13,10 @@
     <version>1.0.0</version>
     <name>lemon-im-client</name>
     <description>lemon IM 接入层</description>
+
+    <modules>
+
+    </modules>
     <properties>
         <java.version>17</java.version>
     </properties>

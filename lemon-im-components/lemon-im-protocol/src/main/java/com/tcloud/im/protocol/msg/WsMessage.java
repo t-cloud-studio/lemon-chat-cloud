@@ -1,7 +1,6 @@
-package com.tcloud.im.gateway.websocket.domain.core;
+package com.tcloud.im.protocol.msg;
 
 import com.tcloud.im.common.enums.MsgType;
-import com.tcloud.im.gateway.websocket.domain.user.FromUser;
 import lombok.Data;
 
 import java.util.Date;
@@ -33,7 +32,7 @@ public class WsMessage {
     /**
      * 发送人
      */
-    private FromUser fromUser;
+    private Long fromUser;
     /**
      *
      */

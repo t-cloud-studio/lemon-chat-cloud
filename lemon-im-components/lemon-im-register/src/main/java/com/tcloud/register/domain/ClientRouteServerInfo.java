@@ -28,5 +28,9 @@ public class ClientRouteServerInfo {
      * http 端口
      */
     private int httpPort;
+    /**
+     * webSocket 路径
+     */
+    private String wsPath;
 
 }

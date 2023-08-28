@@ -59,7 +59,7 @@ public class ClientRegisterRelateManager {
     /**
      * 从Zk拉取所有服务信息
      *
-     * @return {@link Set< ServerInfo >} 服务集合
+     * @return {@link Set<ServerInfo>} 服务集合
      */
     public ClientRouteServerInfo find(Long userId) {
         Object serverId = redisClient.hGet(CLIENT_SESSION_REGISTER_CENTER_KEY, userId.toString());

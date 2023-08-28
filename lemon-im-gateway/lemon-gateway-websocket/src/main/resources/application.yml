@@ -3,6 +3,19 @@ server:
 spring:
   application:
     name: lemon-ws-gateway
+  data:
+    redis:
+      host: 124.223.178.180
+      port: 16379
+      password: g136T1NKClmsW77eLl
+      database: 5
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://mse-e9057ed0-p.nacos-ans.mse.aliyuncs.com:8848
+        namespace: 4647efcf-20e9-4b16-a6ad-13499c61e095
+        access-key: LTAI5tGVMfSUZLZzDVWL2vUt
+        secret-key: GMMQyT4rexMfXHIFOPyztzxLQ8lX19
 im:
   server:
     wsPath: /ws-server

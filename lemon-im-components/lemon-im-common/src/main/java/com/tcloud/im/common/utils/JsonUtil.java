@@ -18,4 +18,7 @@ public class JsonUtil {
     }
 
 
+    public static String toJson(Object content) {
+        return JSON.toJSONString(content);
+    }
 }

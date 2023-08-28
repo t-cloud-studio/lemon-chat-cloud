@@ -1,12 +1,14 @@
 package com.tcloud.im.common.domain;
 
 import com.tcloud.im.common.enums.WsRespCode;
+import lombok.Data;
 
 /**
  * @author evans
  * @description
  * @date 2023/8/26
  */
+@Data
 public class WsResult<T> {
 
     /**

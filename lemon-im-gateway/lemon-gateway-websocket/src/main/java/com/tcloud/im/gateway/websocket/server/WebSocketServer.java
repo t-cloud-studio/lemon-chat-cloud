@@ -8,6 +8,7 @@ import com.tcloud.im.gateway.websocket.config.WebSocketServerConfig;
 import com.tcloud.im.gateway.websocket.handlers.WebSocketServerInitializer;
 import com.tcloud.register.domain.ServerInfo;
 import com.tcloud.register.handler.server.ServerRegister;
+import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -47,6 +48,8 @@ public class WebSocketServer implements ApplicationListener<ContextClosedEvent> 
     private ServerRegister serverRegister;
     @Autowired
     private DistributedIdGenerator idGenerator;
+    @Autowired
+    private ClientRegisterRelateManager clientRegisterRelateManager;
 
     /**
      * 应用名称
@@ -69,7 +72,7 @@ public class WebSocketServer implements ApplicationListener<ContextClosedEvent> 
                 // set nio type channel
                 .channel(NioServerSocketChannel.class)
                 // SocketServer channel 初始化器
-                .childHandler(new WebSocketServerInitializer(imServerConfig.getWsPath()));
+                .childHandler(new WebSocketServerInitializer(imServerConfig.getWsPath(), clientRegisterRelateManager));
         // 获取异步绑定端口的 CompletableFuture
         CompletableFuture<Integer> bindPortFuture = new CompletableFuture<>();
         // 执行端口绑定
@@ -99,7 +102,7 @@ public class WebSocketServer implements ApplicationListener<ContextClosedEvent> 
                 .name(applicationName)
                 .build();
         serverRegister.register(server);
-        ServerInstanceInfo instanceInfo = ServerInstanceInfo.initInstance(serverId, server);
+        ServerInstanceInfo instanceInfo = ServerInstanceInfo.initInstance(serverId,imServerConfig.getWsPath(), server);
         log.info("server:{} is already register", JSON.toJSON(instanceInfo));
     }
 

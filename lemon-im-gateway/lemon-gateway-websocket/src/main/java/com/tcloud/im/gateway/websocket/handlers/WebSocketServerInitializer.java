@@ -1,9 +1,12 @@
 package com.tcloud.im.gateway.websocket.handlers;
 
+import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.http.cors.CorsConfigBuilder;
+import io.netty.handler.codec.http.cors.CorsHandler;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketClientCompressionHandler;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -17,8 +20,11 @@ public class WebSocketServerInitializer extends ChannelInitializer<NioSocketChan
 
     private final String webSocketPath;
 
-    public WebSocketServerInitializer(String webSocketPath) {
+    private final ClientRegisterRelateManager clientRegisterRelateManager;
+
+    public WebSocketServerInitializer(String webSocketPath,ClientRegisterRelateManager clientRegisterRelateManager) {
         this.webSocketPath = webSocketPath;
+        this.clientRegisterRelateManager = clientRegisterRelateManager;
     }
 
     @Override
@@ -34,8 +40,11 @@ public class WebSocketServerInitializer extends ChannelInitializer<NioSocketChan
                 .addLast(new WsPathParamResolveHandler(webSocketPath))
                 // WebSocket 协议处理
                 .addLast(new WebSocketServerProtocolHandler(webSocketPath))
+                // 解决跨域问题
+//                .addLast(new CorsHandler(CorsConfigBuilder.forAnyOrigin().allowNullOrigin().allowCredentials().build()))
                 // 认证
-                .addLast(new AuthenticationHandler())
+                .addLast(new AuthenticationHandler(clientRegisterRelateManager))
+                .addLast(new WebSocketEventHandler())
                 //  空闲状态程序处理
                 .addLast(new IdleStateHandler(60, 0, 0))
                 // 其它对话函数处理器

@@ -20,13 +20,16 @@ public class ServerInstanceInfo {
     private Long serverId;
 
 
+    private String wsPath;
+
     private ServerInfo server;
 
 
     public static volatile ServerInstanceInfo instance;
 
-    public ServerInstanceInfo(Long serverId, ServerInfo server) {
+    public ServerInstanceInfo(Long serverId, String wsPath, ServerInfo server) {
         this.serverId = serverId;
+        this.wsPath = wsPath;
         this.server = server;
     }
 
@@ -40,11 +43,11 @@ public class ServerInstanceInfo {
      * @param serverInfo    服务信息
      * @return {@link ServerInstanceInfo} 实例
      */
-    public static ServerInstanceInfo initInstance(Long serverId, ServerInfo serverInfo) {
+    public static ServerInstanceInfo initInstance(Long serverId, String wsPath, ServerInfo serverInfo) {
         if (instance == null) {
             synchronized (ServerInstanceInfo.class) {
                 if (instance == null) {
-                    instance = new ServerInstanceInfo(serverId, serverInfo);
+                    instance = new ServerInstanceInfo(serverId, wsPath, serverInfo);
                 }
             }
         }
