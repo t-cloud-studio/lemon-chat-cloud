@@ -74,11 +74,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.tcloud</groupId>
-			<artifactId>lemon-feign-api</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
 			<groupId>com.tcloud.im</groupId>
 			<artifactId>lemon-im-protocol</artifactId>
 			<version>1.0.0</version>
@@ -86,6 +81,11 @@
 		<dependency>
 			<groupId>com.tcloud.im</groupId>
 			<artifactId>lemon-im-router</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tcloud</groupId>
+			<artifactId>lemon-common-obj</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>

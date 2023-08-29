@@ -1,8 +1,10 @@
 package com.tcloud.im.gateway.websocket.utils;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tcloud.common.obj.vo.UserInfoVO;
 import com.tcloud.im.common.utils.CtxHelper;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.experimental.UtilityClass;
@@ -20,6 +22,9 @@ import static com.tcloud.im.common.constants.ChannelAttrKeys.PATH_PARAMETERS_KEY
 @UtilityClass
 public class SaTokenHandler {
 
+
+
+    private final String WEB_TOKEN_ATTR_KEY = "web_user_attr";
 
     /**
      * 使用token获取登录用户id
@@ -51,4 +56,8 @@ public class SaTokenHandler {
     }
 
 
+    public static UserInfoVO getLongUserVOById(Long userId) {
+        SaSession session = StpUtil.getSessionByLoginId(userId);
+        return (UserInfoVO)session.get(WEB_TOKEN_ATTR_KEY);
+    }
 }

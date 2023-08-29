@@ -3,6 +3,7 @@ package com.tcloud.im.gateway.websocket.handlers;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
+import com.tcloud.common.obj.vo.UserInfoVO;
 import com.tcloud.im.common.enums.WsRespCode;
 import com.tcloud.im.common.utils.CtxHelper;
 import com.tcloud.im.gateway.websocket.cache.ServerInstanceInfo;
@@ -20,6 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.tcloud.im.common.constants.ChannelAttrKeys.PATH_PARAMETERS_KEY;
+import static com.tcloud.im.common.constants.ChannelAttrKeys.USER_INFO_KEY;
 
 /**
  * @author evans
@@ -65,8 +67,8 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
             return;
         }
         // feign 调用查询用户信息
-//        UserInfoVO loginUserInfo = SpringUtil.getBean(UserInfoFeignService.class).getLoginUserInfo(userId);
-//        CtxHelper.setAttr(ctx, USER_INFO_KEY, loginUserInfo);
+        UserInfoVO userInfoVO = SaTokenHandler.getLongUserVOById(userId);
+        CtxHelper.setAttr(ctx, USER_INFO_KEY, userInfoVO);
         // 缓存channel到本地
         SocketSessionCache.addSession(userId, ctx);
         log.info("user: >> {} is connected on time:{} | session id is :{}", userId, DateUtil.now(), ctx.channel().id());

@@ -1,5 +1,7 @@
 package com.tcloud.web.auth.domain.vo;
 
+import cn.hutool.http.useragent.Platform;
+import com.tcloud.common.obj.vo.UserInfoVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

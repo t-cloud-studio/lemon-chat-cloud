@@ -23,7 +23,7 @@ public class SocketSessionCache {
      * @k userId
      * @v session
      */
-    private static Map<Long, ChannelHandlerContext> SESSION_MAP = Maps.newConcurrentMap();
+    private static final Map<Long, ChannelHandlerContext> SESSION_MAP = Maps.newConcurrentMap();
 
 
     /**

@@ -7,7 +7,7 @@ import cn.hutool.core.date.DateUtil;
 import com.tcloud.web.auth.domain.entity.UserLoginLog;
 import com.tcloud.web.auth.domain.request.LoginRequest;
 import com.tcloud.web.auth.domain.vo.LoginResponse;
-import com.tcloud.web.auth.domain.vo.UserInfoVO;
+import com.tcloud.common.obj.vo.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;

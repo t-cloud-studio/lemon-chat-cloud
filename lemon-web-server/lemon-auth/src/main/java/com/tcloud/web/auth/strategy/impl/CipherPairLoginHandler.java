@@ -1,7 +1,7 @@
 package com.tcloud.web.auth.strategy.impl;
 
 import com.tcloud.web.auth.domain.request.LoginRequest;
-import com.tcloud.web.auth.domain.vo.UserInfoVO;
+import com.tcloud.common.obj.vo.UserInfoVO;
 import com.tcloud.web.auth.strategy.AbstractLoginHandler;
 import com.tcloud.web.auth.utils.IPUtil;
 import com.tcloud.web.common.exceptions.BodyParamErrorException;
