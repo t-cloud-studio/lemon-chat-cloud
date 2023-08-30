@@ -3,32 +3,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
+        <artifactId>lemon-components</artifactId>
         <groupId>com.tcloud</groupId>
-        <artifactId>lemon-chat-cloud</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-
-    <groupId>com.tcloud.web</groupId>
-    <artifactId>lemon-web-server</artifactId>
+    <artifactId>lemon-common-obj</artifactId>
     <version>1.0.0</version>
-    <name>lemon-web-server</name>
-    <description>lemon_web_server</description>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>lemon-admin</module>
-        <module>lemon-common</module>
-        <module>lemon-auth</module>
-        <module>lemon-gateway</module>
-        <module>lemon-ucenter</module>
-        <module>lemon-msg</module>
-    </modules>
+    <name>lemon-common-obj</name>
+    <description>lemon-common-obj</description>
     <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
     </dependencies>
-
 
 </project>

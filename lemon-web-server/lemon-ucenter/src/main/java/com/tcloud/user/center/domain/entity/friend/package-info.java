@@ -1,1 +1,0 @@
-package com.tcloud.user.center.domain.entity.friend;

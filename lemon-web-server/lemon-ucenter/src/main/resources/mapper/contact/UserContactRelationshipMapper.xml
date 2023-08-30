@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcloud.user.center.mapper.contact.UserContactRelationshipMapper">
+
+
+    <select id="contactList" resultType="com.tcloud.user.center.domain.vo.UserContactPageVO">
+        SELECT
+            a.id,
+            a.contact_user_id,
+            b.nickname,
+            b.avatar
+        FROM
+            user_contact_relationship a
+            LEFT JOIN user_info b ON a.contact_user_id = b.id
+        WHERE
+        a.user_id = 1
+        AND a.agreed = 1
+        AND a.deleted = 0
+    </select>
+    <select id="selectToAddList" resultType="com.tcloud.user.center.domain.vo.UserContactPageVO">
+        SELECT
+            a.id,
+            a.contact_user_id,
+            b.nickname,
+            b.avatar
+        FROM
+            user_contact_relationship a
+            LEFT JOIN user_info b ON a.user_id = b.id
+        WHERE
+        a.contact_user_id = #{requestUserId}
+        AND a.agreed = 0
+        AND a.deleted = 0
+    </select>
+</mapper>

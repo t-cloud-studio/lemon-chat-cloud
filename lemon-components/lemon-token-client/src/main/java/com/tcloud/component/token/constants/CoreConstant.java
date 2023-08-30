@@ -1,4 +1,4 @@
-package com.tcloud.web.common.constants;
+package com.tcloud.component.token.constants;
 
 public interface CoreConstant {
 

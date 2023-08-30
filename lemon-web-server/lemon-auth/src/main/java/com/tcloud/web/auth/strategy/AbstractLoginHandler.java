@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
-import static com.tcloud.web.common.constants.CoreConstant.WEB_TOKEN_ATTR_KEY;
+import static com.tcloud.web.common.constants.NumConstant.WEB_TOKEN_ATTR_KEY;
 
 @Slf4j
 public abstract class AbstractLoginHandler {
