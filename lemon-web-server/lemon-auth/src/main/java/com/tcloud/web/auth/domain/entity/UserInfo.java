@@ -68,6 +68,10 @@ public class UserInfo {
      * 微信openId
      */
     private String openId;
+    /**
+     * 是否删除
+     */
+    private Integer deleted;
 
     /**
      * 最后登录时间

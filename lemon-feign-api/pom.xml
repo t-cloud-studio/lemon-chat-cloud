@@ -12,6 +12,7 @@
     <version>1.0.0</version>
     <name>lemon-feign-api</name>
     <description>lemon-feign-api</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>lemon-feign-user-service</module>

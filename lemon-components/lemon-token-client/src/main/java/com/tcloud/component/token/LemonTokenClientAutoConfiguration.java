@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Anker
  */
-@Configuration
-@ConditionalOnClass(SaTokenConfiguration.class)
-@EnableConfigurationProperties(SaTokenConfiguration.class)
 public class LemonTokenClientAutoConfiguration {
 
     public static void main(String[] args) {

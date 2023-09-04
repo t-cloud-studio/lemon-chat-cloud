@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcloud.user.center.mapper.group.ChatGroupMemberMapper">
+
+    <insert id="batchInsert">
+        insert into chat_group_member (`group_id`,`user_id`,`nickname`,`avatar`) values
+        <foreach collection="members" item="member" separator=",">
+            (#{groupId}, #{member.userId}, #{member.nickname},#{member.avatar},)
+        </foreach>
+    </insert>
+</mapper>

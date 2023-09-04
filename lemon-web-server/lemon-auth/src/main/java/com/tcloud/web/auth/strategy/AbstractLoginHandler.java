@@ -4,6 +4,7 @@ package com.tcloud.web.auth.strategy;
 ;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateUtil;
+import com.tcloud.component.token.utils.TokenUtil;
 import com.tcloud.web.auth.domain.entity.UserLoginLog;
 import com.tcloud.web.auth.domain.request.LoginRequest;
 import com.tcloud.web.auth.domain.vo.LoginResponse;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
-import static com.tcloud.web.common.constants.NumConstant.WEB_TOKEN_ATTR_KEY;
 
 @Slf4j
 public abstract class AbstractLoginHandler {
@@ -42,8 +42,7 @@ public abstract class AbstractLoginHandler {
 
 
     protected void loginSuccess(UserInfoVO userInfoVO){
-        StpUtil.login(userInfoVO.getId());
-        StpUtil.getSession().set(WEB_TOKEN_ATTR_KEY, userInfoVO);
+        TokenUtil.loginAndSetUserSession(userInfoVO.getId(), userInfoVO);
         // 记录日志
         UserLoginLog loginLog = new UserLoginLog();
         loginLog.setLoginIp(userInfoVO.getLoginIp());

@@ -1,0 +1,30 @@
+server:
+  port: 9100
+spring:
+  application:
+    name: lemon-ucenter
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://124.223.178.180:13601/lemon_chat?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    username: lemon_chat_dev
+    password: ymDbX2kNknhKSGyk
+  data:
+    redis:
+      host: 124.223.178.180
+      port: 16379
+      password: g136T1NKClmsW77eLl
+      database: 5
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.30.133:8848
+        namespace: e5786474-e639-47fb-90a6-4696ef907e5a
+        group: DEFAULT_GROUP
+#      config:
+#        server-addr: http://mse-e9057ed0-p.nacos-ans.mse.aliyuncs.com:8848
+#        namespace: lemon-chat-dev
+#        import-check:
+#          enabled: false
+mybatis-plus:
+  mapperLocations: classpath*:/mapper/**/*.xml

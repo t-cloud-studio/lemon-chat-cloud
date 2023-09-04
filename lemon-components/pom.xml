@@ -19,5 +19,7 @@
         <module>lemon-zk-client</module>
         <module>lemon-redis-client</module>
         <module>lemon-id-generator</module>
+        <module>lemon-common-obj</module>
+        <module>lemon-token-client</module>
     </modules>
 </project>

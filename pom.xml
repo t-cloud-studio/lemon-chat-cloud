@@ -30,6 +30,7 @@
         <module>lemon-web-server</module>
         <module>lemon-im-components</module>
         <module>lemon-im-client</module>
+        <module>lemon-feign-api</module>
     </modules>
 
 
@@ -49,6 +50,9 @@
         <mysql-driver.version>8.0.30</mysql-driver.version>
         <ali-spring-cloud.version>2022.0.0.0</ali-spring-cloud.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <tencent-api.version>3.1.764</tencent-api.version>
+        <tencent-cos.version>5.6.133</tencent-cos.version>
+        <tencent-cos-sts.version>3.1.0</tencent-cos-sts.version>
     </properties>
 
     <dependencyManagement>
@@ -140,7 +144,7 @@
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mbp.version}</version>
             </dependency>
             <dependency>
@@ -173,6 +177,27 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--            腾讯云Api-->
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-sms</artifactId>
+                <version>${tencent-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>${tencent-cos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos-sts_api</artifactId>
+                <version>${tencent-cos-sts.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-crypto</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

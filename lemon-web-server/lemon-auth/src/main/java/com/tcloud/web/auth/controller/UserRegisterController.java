@@ -1,7 +1,7 @@
 package com.tcloud.web.auth.controller;
 
 import com.tcloud.web.auth.domain.request.RegisterRequest;
-import com.tcloud.web.auth.service.IUserRegisterService;
+import com.tcloud.web.auth.service.UserRegisterService;
 import com.tcloud.web.common.r.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/web/auth/user_info")
 public class UserRegisterController {
 
-    private final IUserRegisterService userRegisterService;
+    private final UserRegisterService userRegisterService;
 
 
     @PostMapping("user_register")

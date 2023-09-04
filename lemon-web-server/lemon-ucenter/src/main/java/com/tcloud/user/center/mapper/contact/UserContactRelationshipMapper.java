@@ -8,7 +8,6 @@ import com.tcloud.user.center.domain.vo.UserContactPageVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-@Mapper
 public interface UserContactRelationshipMapper extends BaseMapper<UserContactRelationship> {
     Page<UserContactPageVO> contactList(Page<Object> toPage, UserFriendRelationshipRequest condition, Long requestUserId);
 

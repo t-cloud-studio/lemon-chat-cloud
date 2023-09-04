@@ -1,5 +1,9 @@
 package com.tcloud.user.center.enums;
 
+import com.tcloud.user.center.strategy.IAgreeEventProgress;
+import com.tcloud.user.center.strategy.impl.AgreeEventProcessHandler;
+import com.tcloud.user.center.strategy.impl.BlockEventProcessHandler;
+import com.tcloud.user.center.strategy.impl.DisagreeEventProcessHandler;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,18 +14,20 @@ import java.util.Arrays;
 public enum ContactAgreeStatus {
 
 
-    AGREED(1, "已同意"),
+    AGREED(1, "已同意", AgreeEventProcessHandler.class),
 
-    NOT_RESPONSE_YET(0, "暂无回应"),
+    NOT_RESPONSE_YET(0, "暂无回应", null),
 
-    DISAGREE(-1 ,"拒绝申请"),
+    DISAGREE(-1 ,"拒绝申请", DisagreeEventProcessHandler.class),
 
-    BLOCK(999, "已被对方加入黑名单");
+    BLOCK(999, "已被对方加入黑名单", BlockEventProcessHandler.class);
 
 
     private final Integer status;
 
     private final String describe;
+
+    private final Class<? extends IAgreeEventProgress> handler;
 
 
     public static ContactAgreeStatus load(Integer status){

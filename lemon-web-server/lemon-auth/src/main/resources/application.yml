@@ -18,10 +18,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: http://mse-e9057ed0-p.nacos-ans.mse.aliyuncs.com:8848
-        namespace: 4647efcf-20e9-4b16-a6ad-13499c61e095
-        access-key: LTAI5tGVMfSUZLZzDVWL2vUt
-        secret-key: GMMQyT4rexMfXHIFOPyztzxLQ8lX19
+        server-addr: http://192.168.30.133:8848
+        namespace: e5786474-e639-47fb-90a6-4696ef907e5a
+#        access-key: LTAI5tGVMfSUZLZzDVWL2vUt
+        secret-key: QVNKQ0FTTERMQTpMOlNLQ01BTEtTTEtESkxBS0NNTkFTQk5ETkFCVjxBTlNKREhLSkFTQkRLSkFOU0Q=
+        group: DEFAULT_GROUP
 #      config:
 #        server-addr: http://mse-e9057ed0-p.nacos-ans.mse.aliyuncs.com:8848
 #        namespace: lemon-chat-dev

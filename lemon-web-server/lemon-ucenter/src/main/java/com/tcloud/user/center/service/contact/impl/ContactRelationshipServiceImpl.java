@@ -1,6 +1,7 @@
 package com.tcloud.user.center.service.contact.impl;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,28 +9,30 @@ import com.tcloud.component.token.utils.TokenUtil;
 import com.tcloud.user.center.domain.entity.contact.UserContactRelationship;
 import com.tcloud.user.center.domain.entity.user.UserInfo;
 import com.tcloud.user.center.domain.req.UserAddConcatRequest;
+import com.tcloud.user.center.domain.req.UserAgreeEventRequest;
 import com.tcloud.user.center.domain.req.UserFriendRelationshipRequest;
 import com.tcloud.user.center.domain.vo.UserContactPageVO;
 import com.tcloud.user.center.enums.ContactAgreeStatus;
 import com.tcloud.user.center.mapper.contact.UserContactRelationshipMapper;
-import com.tcloud.user.center.service.contact.IUserContactRelationshipService;
-import com.tcloud.user.center.service.user.IUserInfoService;
+import com.tcloud.user.center.service.contact.ContactRelationshipService;
+import com.tcloud.user.center.service.user.UserInfoService;
+import com.tcloud.user.center.strategy.IAgreeEventProgress;
 import com.tcloud.web.common.constants.NumConstant;
 import com.tcloud.web.common.domain.PageRequest;
 import com.tcloud.web.common.enums.BoolEnum;
 import com.tcloud.web.common.exceptions.ApplicationBizException;
-import jakarta.validation.constraints.AssertTrue;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-public class UserContactRelationshipServiceImpl extends ServiceImpl<UserContactRelationshipMapper, UserContactRelationship> implements IUserContactRelationshipService {
+public class ContactRelationshipServiceImpl extends ServiceImpl<UserContactRelationshipMapper, UserContactRelationship> implements ContactRelationshipService {
 
 
-    private final IUserInfoService userInfoService;
+    @Autowired
+    private UserInfoService userInfoService;
 
 
     @Override
@@ -64,18 +67,24 @@ public class UserContactRelationshipServiceImpl extends ServiceImpl<UserContactR
     }
 
     @Override
-    public void doAgreeEvent(Long relationId, Long requestUserId) {
-        UserContactRelationship relationship = baseMapper.selectById(relationId);
-        Assert.isTrue(ContactAgreeStatus.isAgreed(relationship.getAgreed()), () -> new ApplicationBizException("对方已同意"));
-        Assert.isFalse(ContactAgreeStatus.isBlock(relationship.getAgreed()), () -> new ApplicationBizException("对方已将您拉入黑名单"));
-        Assert.isTrue(ContactAgreeStatus.disagreed(relationship.getAgreed()), () -> new ApplicationBizException("对方拒绝你的好友申请"));
-
-        UserContactRelationship newRelation = UserContactRelationship.build(relationship.getUserId(), requestUserId);
-        newRelation.setAgreed(ContactAgreeStatus.AGREED.getStatus());
-
-        save(newRelation);
+    public void doAgreeEvent(UserAgreeEventRequest request, Long requestUserId) {
+        UserContactRelationship relationship = baseMapper.selectById(request.getRelationId());
+        Assert.isTrue(Objects.nonNull(relationship), () -> new ApplicationBizException("好友申请已失效"));
+        Assert.isTrue(relationship.getContactUserId().equals(requestUserId), () -> new ApplicationBizException("无效的好友申请"));
 
 
+        IAgreeEventProgress handlerBean = Optional.ofNullable(SpringUtil.getBean(request.getAgreeStatus().getHandler())).orElseThrow(() -> new ApplicationBizException("不被允许的操作类型"));
 
+        handlerBean.eventProgress(relationship);
+    }
+
+
+    @Override
+    public boolean hasRelation(Long createUserId, Integer userId) {
+        Long count = baseMapper.selectCount(Wrappers.<UserContactRelationship>lambdaQuery()
+                .eq(UserContactRelationship::getUserId, createUserId)
+                .eq(UserContactRelationship::getContactUserId, userId)
+                .eq(UserContactRelationship::getAgreed, ContactAgreeStatus.AGREED));
+        return count.compareTo(NumConstant.ZERO) > 0;
     }
 }

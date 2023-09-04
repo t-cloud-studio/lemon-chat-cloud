@@ -7,13 +7,13 @@
 
     <select id="contactList" resultType="com.tcloud.user.center.domain.vo.UserContactPageVO">
         SELECT
-            a.id,
-            a.contact_user_id,
-            b.nickname,
-            b.avatar
+        a.id,
+        a.contact_user_id,
+        b.nickname,
+        b.avatar
         FROM
-            user_contact_relationship a
-            LEFT JOIN user_info b ON a.contact_user_id = b.id
+        user_contact_relationship a
+        LEFT JOIN user_info b ON a.contact_user_id = b.id
         WHERE
         a.user_id = 1
         AND a.agreed = 1
@@ -21,13 +21,13 @@
     </select>
     <select id="selectToAddList" resultType="com.tcloud.user.center.domain.vo.UserContactPageVO">
         SELECT
-            a.id,
-            a.contact_user_id,
-            b.nickname,
-            b.avatar
+        a.id,
+        a.contact_user_id,
+        b.nickname,
+        b.avatar
         FROM
-            user_contact_relationship a
-            LEFT JOIN user_info b ON a.user_id = b.id
+        user_contact_relationship a
+        LEFT JOIN user_info b ON a.user_id = b.id
         WHERE
         a.contact_user_id = #{requestUserId}
         AND a.agreed = 0
