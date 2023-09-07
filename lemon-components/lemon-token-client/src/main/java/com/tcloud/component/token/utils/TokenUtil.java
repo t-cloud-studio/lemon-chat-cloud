@@ -1,8 +1,12 @@
 package com.tcloud.component.token.utils;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.tcloud.common.obj.vo.UserInfoVO;
 import lombok.experimental.UtilityClass;
+
+import java.util.Objects;
 
 import static com.tcloud.component.token.constants.CoreConstant.WEB_TOKEN_ATTR_KEY;
 
@@ -45,5 +49,38 @@ public class TokenUtil {
     public void loginAndSetUserSession(Long id, UserInfoVO userInfoVO) {
         StpUtil.login(id);
         setUserSessionAttr(userInfoVO);
+    }
+
+    public static String getTokenName() {
+        return StpUtil.getTokenName();
+    }
+
+    /**
+     * 使用token获取登录用户id
+     *
+     * @param token token字符串
+     * @return {@link  Long} userId
+     */
+    public static Long getUserIdByToken(String token) {
+        // token
+        if (CharSequenceUtil.isBlank(token)) {
+            return null;
+        }
+        Object loginIdByToken = StpUtil.getLoginIdByToken(token);
+        if (Objects.isNull(loginIdByToken)){
+            return null;
+        }
+        return Long.parseLong(loginIdByToken.toString());
+    }
+
+
+
+    public static UserInfoVO getLongUserVOById(Long userId) {
+        SaSession session = StpUtil.getSessionByLoginId(userId);
+        return (UserInfoVO)session.get(WEB_TOKEN_ATTR_KEY);
+    }
+
+    public static boolean isLogin(String token) {
+        return StpUtil.isLogin(getUserIdByToken(token));
     }
 }

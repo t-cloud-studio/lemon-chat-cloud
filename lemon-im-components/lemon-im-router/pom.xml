@@ -26,6 +26,11 @@
             <artifactId>lemon-im-register</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.tcloud</groupId>
+            <artifactId>lemon-common-obj</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

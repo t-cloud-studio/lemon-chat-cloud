@@ -1,4 +1,4 @@
-package com.tcloud.im.common.enums;
+package com.tcloud.common.obj.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

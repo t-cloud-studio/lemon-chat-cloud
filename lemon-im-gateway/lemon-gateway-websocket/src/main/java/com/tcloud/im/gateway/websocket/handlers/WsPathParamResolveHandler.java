@@ -1,5 +1,6 @@
 package com.tcloud.im.gateway.websocket.handlers;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import com.tcloud.im.common.utils.CtxHelper;
 import com.tcloud.im.common.utils.PathParamResolver;
 import io.netty.channel.ChannelHandlerContext;
@@ -29,7 +30,9 @@ public class WsPathParamResolveHandler extends ChannelInboundHandlerAdapter {
             // 设置参数到channel
             CtxHelper.setAttr(ctx, PATH_PARAMETERS_KEY, pathParam);
             // 将uri恢复为正常的
-            httpRequest.setUri(webSocketPath);
+            if (CharSequenceUtil.isNotBlank(webSocketPath)){
+                httpRequest.setUri(webSocketPath);
+            }
         }
         // 重置引用
         ReferenceCountUtil.retain(msg);

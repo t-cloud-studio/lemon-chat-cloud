@@ -1,12 +1,11 @@
 package com.tcloud.im.gateway.websocket.handlers.impl;
 
+import com.tcloud.common.obj.msg.WsMessage;
 import com.tcloud.im.common.annotations.CmdHandler;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.common.utils.CtxHelper;
 import com.tcloud.im.gateway.websocket.cache.SocketSessionCache;
-import com.tcloud.im.protocol.msg.WsMessage;
 import com.tcloud.im.gateway.websocket.handlers.IChatCmdHandler;
-import com.tcloud.register.domain.ClientRouteServerInfo;
 import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.nio.NioSocketChannel;

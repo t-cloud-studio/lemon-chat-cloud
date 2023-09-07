@@ -1,9 +1,9 @@
 package com.tcloud.im.gateway.websocket.handlers;
 
+import com.tcloud.common.obj.msg.WsMessage;
 import com.tcloud.im.common.annotations.CmdHandler;
 import com.tcloud.im.common.enums.Command;
 import com.tcloud.im.common.exceptions.UnKnowCmdException;
-import com.tcloud.im.protocol.msg.WsMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.springframework.beans.factory.annotation.Autowired;

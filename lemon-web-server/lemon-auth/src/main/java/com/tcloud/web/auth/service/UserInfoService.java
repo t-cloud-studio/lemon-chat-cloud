@@ -13,4 +13,13 @@ public interface UserInfoService extends IService<UserInfo> {
     UserInfo findValidUserById(Integer userId);
 
     UserInfo existsPhone(String phone);
+
+    /**
+     * 创建并保存用户
+     *
+     * @param phone
+     * @param cipher
+     * @return
+     */
+    UserInfo createUser(String phone, String cipher);
 }

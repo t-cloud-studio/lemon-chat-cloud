@@ -1,7 +1,7 @@
 package com.tcloud.im.router.worker;
 
+import com.tcloud.common.obj.msg.WsMessage;
 import com.tcloud.im.protocol.msg.LemonMessage;
-import com.tcloud.im.protocol.msg.WsMessage;
 
 /**
  * 路由

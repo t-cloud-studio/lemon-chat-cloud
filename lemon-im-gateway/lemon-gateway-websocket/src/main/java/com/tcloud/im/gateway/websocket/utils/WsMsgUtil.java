@@ -1,7 +1,7 @@
 package com.tcloud.im.gateway.websocket.utils;
 
 import com.alibaba.fastjson2.JSON;
-import com.tcloud.im.protocol.msg.WsMessage;
+import com.tcloud.common.obj.msg.WsMessage;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import lombok.experimental.UtilityClass;

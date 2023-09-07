@@ -56,19 +56,15 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.dev33</groupId>
-			<artifactId>sa-token-redis-jackson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cn.dev33</groupId>
-			<artifactId>sa-token-spring-boot3-starter</artifactId>
+			<groupId>com.tcloud</groupId>
+			<artifactId>lemon-token-client</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 <!--		nacos 服务注册 用于openfeign 路由-->
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

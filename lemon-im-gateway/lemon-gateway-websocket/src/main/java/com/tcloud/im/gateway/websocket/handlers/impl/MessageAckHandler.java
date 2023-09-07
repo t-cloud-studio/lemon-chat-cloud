@@ -1,6 +1,6 @@
 package com.tcloud.im.gateway.websocket.handlers.impl;
 
-import com.tcloud.im.protocol.msg.WsMessage;
+import com.tcloud.common.obj.msg.WsMessage;
 import com.tcloud.im.gateway.websocket.handlers.IChatCmdHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
 

@@ -1,6 +1,7 @@
-package com.tcloud.im.protocol.msg;
+package com.tcloud.common.obj.msg;
 
-import com.tcloud.im.common.enums.MsgType;
+
+import com.tcloud.common.obj.enums.MsgType;
 import lombok.Data;
 
 import java.util.Date;

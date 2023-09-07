@@ -4,11 +4,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import com.tcloud.common.obj.vo.UserInfoVO;
+import com.tcloud.component.token.utils.TokenUtil;
 import com.tcloud.im.common.enums.WsRespCode;
 import com.tcloud.im.common.utils.CtxHelper;
 import com.tcloud.im.gateway.websocket.cache.ServerInstanceInfo;
 import com.tcloud.im.gateway.websocket.cache.SocketSessionCache;
-import com.tcloud.im.gateway.websocket.utils.SaTokenHandler;
 import com.tcloud.register.domain.ClientRouteServerInfo;
 import com.tcloud.register.manager.client.ClientRegisterRelateManager;
 import io.netty.channel.ChannelHandler;
@@ -49,8 +49,8 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
             CtxHelper.close(ctx,"认证失败");
             return;
         }
-        String token = parameters.get(StpUtil.getTokenName());
-        Long userId = SaTokenHandler.getUserIdByToken(token);
+        String token = parameters.get(TokenUtil.getTokenName());
+        Long userId = TokenUtil.getUserIdByToken(token);
         if (Objects.isNull(userId)){
             // 用户未登录
             CtxHelper.writeFailAndClose(ctx, WsRespCode.UN_AUTHORIZED, "请登录!!");
@@ -67,7 +67,7 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
             return;
         }
         // feign 调用查询用户信息
-        UserInfoVO userInfoVO = SaTokenHandler.getLongUserVOById(userId);
+        UserInfoVO userInfoVO = TokenUtil.getLongUserVOById(userId);
         CtxHelper.setAttr(ctx, USER_INFO_KEY, userInfoVO);
         // 缓存channel到本地
         SocketSessionCache.addSession(userId, ctx);
@@ -77,8 +77,9 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
+        String token = CtxHelper.getStrPathParam(ctx, StpUtil.getTokenName());
         // 用户是否登录
-        if (!SaTokenHandler.isLogin(ctx)){
+        if (!TokenUtil.isLogin(token)) {
             // 用户未登录
             CtxHelper.writeFailAndClose(ctx, WsRespCode.BIZ_ERROR, "请登录!!");
         }

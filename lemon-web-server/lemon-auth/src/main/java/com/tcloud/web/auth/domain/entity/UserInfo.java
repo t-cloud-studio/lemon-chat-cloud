@@ -72,6 +72,10 @@ public class UserInfo {
      * 是否删除
      */
     private Integer deleted;
+    /**
+     * 密盐
+     */
+    private String cipherSalt;
 
     /**
      * 最后登录时间
