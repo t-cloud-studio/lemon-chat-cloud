@@ -31,7 +31,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void Register(RegisterRequest request) {
+    public void registerAccount(RegisterRequest request) {
         // 手机验证码校验
         Assert.isTrue(captchaActionService.verificationSmsCaptcha(request.getPhone(), request.getCaptcha()), () -> new ApplicationBizException("验证码已失效!"));
         // 电话号码

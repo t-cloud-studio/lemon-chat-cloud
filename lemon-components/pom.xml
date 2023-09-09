@@ -21,5 +21,6 @@
         <module>lemon-id-generator</module>
         <module>lemon-common-obj</module>
         <module>lemon-token-client</module>
+        <module>lemon-captcha-generator</module>
     </modules>
 </project>

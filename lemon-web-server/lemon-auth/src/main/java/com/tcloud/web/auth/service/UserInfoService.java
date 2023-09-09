@@ -22,4 +22,12 @@ public interface UserInfoService extends IService<UserInfo> {
      * @return
      */
     UserInfo createUser(String phone, String cipher);
+
+    /**
+     * 使用手机号查询用户
+     *
+     * @param phone 手机号码
+     * @return {@link UserInfo}
+     */
+    UserInfo selectUserInfoByPhone(String phone);
 }

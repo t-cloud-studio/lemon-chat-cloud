@@ -48,4 +48,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         String s = RandomUtil.randomString(6);
         return StrUtil.builder(DEFAULT_NICKNAME_PREFIX).append(s).toString();
     }
+
+
+    @Override
+    public UserInfo selectUserInfoByPhone(String phone) {
+        return baseMapper.selectOne(Wrappers.<UserInfo>lambdaQuery().eq(UserInfo::getPhone, phone));
+    }
 }

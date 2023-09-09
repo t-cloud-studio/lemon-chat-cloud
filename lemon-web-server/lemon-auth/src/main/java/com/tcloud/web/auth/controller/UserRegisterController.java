@@ -23,7 +23,7 @@ public class UserRegisterController {
 
     @PostMapping("user_register")
     public R<Void> userRegister(RegisterRequest request){
-        userRegisterService.Register(request);
+        userRegisterService.registerAccount(request);
         return R.success();
     }
 

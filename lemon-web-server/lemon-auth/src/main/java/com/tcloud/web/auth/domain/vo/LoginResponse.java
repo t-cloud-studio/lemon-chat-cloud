@@ -1,6 +1,5 @@
 package com.tcloud.web.auth.domain.vo;
 
-import cn.hutool.http.useragent.Platform;
 import com.tcloud.common.obj.vo.UserInfoVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -81,13 +80,23 @@ public class LoginResponse {
          */
         private String host;
         /**
-         * 主机端口
+         * 主端口
          */
         private Integer port;
+        /**
+         * webSocket 地址
+         */
+        private String wsPath;
 
         public ServerRouteInfo(String host, Integer port) {
             this.host = host;
             this.port = port;
+        }
+
+        public ServerRouteInfo(String host, Integer port, String wsPath) {
+            this.host = host;
+            this.port = port;
+            this.wsPath = wsPath;
         }
     }
 }

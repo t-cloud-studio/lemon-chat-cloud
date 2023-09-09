@@ -25,4 +25,8 @@ public class ApplicationBizException extends RuntimeException{
     protected ApplicationBizException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    public static void throwException(String message) {
+        throw new ApplicationBizException(message);
+    }
 }

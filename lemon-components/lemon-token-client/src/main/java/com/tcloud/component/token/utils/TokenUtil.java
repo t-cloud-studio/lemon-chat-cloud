@@ -51,6 +51,11 @@ public class TokenUtil {
         setUserSessionAttr(userInfoVO);
     }
 
+    /**
+     * get token name
+     *
+     * @return the name of  current sys sa token config
+     */
     public static String getTokenName() {
         return StpUtil.getTokenName();
     }
@@ -73,14 +78,29 @@ public class TokenUtil {
         return Long.parseLong(loginIdByToken.toString());
     }
 
-
-
-    public static UserInfoVO getLongUserVOById(Long userId) {
+    /**
+     * get current user info by login user id
+     *
+     * @param userId    userId
+     * @return {@link UserInfoVO}
+     */
+    public static UserInfoVO getUserInfoById(Long userId) {
         SaSession session = StpUtil.getSessionByLoginId(userId);
         return (UserInfoVO)session.get(WEB_TOKEN_ATTR_KEY);
     }
 
+    /**
+     * check current request is login or not
+     *
+     * @param token token var
+     * @return true or false
+     */
     public static boolean isLogin(String token) {
         return StpUtil.isLogin(getUserIdByToken(token));
+    }
+
+
+    public static String getTokenValue(){
+        return StpUtil.getTokenValue();
     }
 }

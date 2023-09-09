@@ -97,11 +97,11 @@
 <!--            <artifactId>lemon-im-client</artifactId>-->
 <!--            <version>1.0.0</version>-->
 <!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.tcloud.im</groupId>-->
-<!--            <artifactId>lemon-im-lsb</artifactId>-->
-<!--            <version>1.0.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.tcloud.im</groupId>
+            <artifactId>lemon-im-lsb</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
     </dependencies>
 

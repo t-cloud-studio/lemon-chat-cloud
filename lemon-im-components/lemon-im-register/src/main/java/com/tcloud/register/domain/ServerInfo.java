@@ -31,6 +31,10 @@ public class ServerInfo implements Comparable<ServerInfo> {
      */
     private AtomicInteger connections;
     /**
+     * webSocket 地址
+     */
+    private String wsPath;
+    /**
      * 节点id
      */
     private Long serverId;

@@ -67,7 +67,7 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<WebSocket
             return;
         }
         // feign 调用查询用户信息
-        UserInfoVO userInfoVO = TokenUtil.getLongUserVOById(userId);
+        UserInfoVO userInfoVO = TokenUtil.getUserInfoById(userId);
         CtxHelper.setAttr(ctx, USER_INFO_KEY, userInfoVO);
         // 缓存channel到本地
         SocketSessionCache.addSession(userId, ctx);

@@ -2,6 +2,9 @@ package com.tcloud.web.auth.utils;
 
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.useragent.Platform;
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
@@ -18,7 +21,7 @@ import java.util.function.Predicate;
  * Web 相关工具类
  */
 @UtilityClass
-public class IPUtil {
+public class RequestUtil {
 
 
     /**
@@ -42,6 +45,9 @@ public class IPUtil {
             "HTTP_X_FORWARDED_FOR"
     };
 
+
+    private static final String USER_AGENT_KEY = "User-Agent";
+
     /**
      * IP 地址的断言条件
      */
@@ -63,7 +69,7 @@ public class IPUtil {
      * @return {String}
      */
     public static String getIp() {
-        return getIp(IPUtil.getRequest());
+        return getIp(RequestUtil.getRequest());
     }
 
     /**
@@ -93,5 +99,11 @@ public class IPUtil {
         }
         // 返回第一个逗号分隔的 IP 地址，多个 IP 地址时取第一个 IP 地址
         return StrUtil.isBlank(ip) ? null : StrUtil.splitTrim(ip, StrPool.COMMA).get(0);
+    }
+
+    public static Platform getRequestPlatform() {
+        HttpServletRequest request = getRequest();
+        UserAgent parse = UserAgentUtil.parse(request.getHeader(USER_AGENT_KEY));
+        return parse.getPlatform();
     }
 }
