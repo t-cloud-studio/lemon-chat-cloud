@@ -33,4 +33,7 @@ public class ClientRouteServerInfo {
      */
     private String wsPath;
 
+
+    private String serverId;
+
 }

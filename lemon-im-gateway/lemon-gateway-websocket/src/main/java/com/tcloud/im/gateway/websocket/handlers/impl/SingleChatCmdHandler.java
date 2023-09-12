@@ -27,17 +27,13 @@ public class SingleChatCmdHandler implements IChatCmdHandler {
 
     @Override
     public void execute(WsMessage message, NioSocketChannel channel) {
-        // TODO 伪代码
         Long toUser = message.getToUser();
         // 从本服务器找
-        if (SocketSessionCache.exists(toUser)){
-            // 如果本地存在会话,则执行单条消息发送
-            ChannelHandlerContext toUserChannel = SocketSessionCache.get(toUser);
-            CtxHelper.writeSuccess(toUserChannel, message);
-            // 消息入库, 等待签收
-        } else {
-            // TODO TCP 或 HTTP 将消息进行转发到目标服务器
-
+        if (!SocketSessionCache.exists(toUser)) {
+            return;
         }
+        // 如果本地存在会话,则执行单条消息发送
+        ChannelHandlerContext toUserChannel = SocketSessionCache.get(toUser);
+        CtxHelper.writeSuccess(toUserChannel, message);
     }
 }

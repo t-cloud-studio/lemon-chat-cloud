@@ -10,12 +10,12 @@ public class ChatMsgSendProcessServiceImpl implements ChatMsgSendProcessService 
 
 
     @Override
-    public void sendSingleMsg(SingleMsgSendRequest request) {
-
+    public String sendSingleMsg(SingleMsgSendRequest request) {
+        return "msg";
     }
 
     @Override
-    public void sendGroupMsg(GroupMsgSendRequest request) {
-
+    public String sendGroupMsg(GroupMsgSendRequest request) {
+        return "msg";
     }
 }

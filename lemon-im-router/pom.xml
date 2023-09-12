@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>lemon-im-components</artifactId>
-        <groupId>com.tcloud.im</groupId>
+        <artifactId>lemon-chat-cloud</artifactId>
+        <groupId>com.tcloud</groupId>
         <version>1.0.0</version>
     </parent>
     <artifactId>lemon-im-router</artifactId>
@@ -29,6 +29,11 @@
         <dependency>
             <groupId>com.tcloud</groupId>
             <artifactId>lemon-common-obj</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tcloud</groupId>
+            <artifactId>lemon-mq-client</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

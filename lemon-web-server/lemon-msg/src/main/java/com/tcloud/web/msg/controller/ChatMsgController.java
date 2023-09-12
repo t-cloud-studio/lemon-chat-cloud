@@ -19,16 +19,14 @@ public class ChatMsgController {
     private ChatMsgSendProcessService chatMsgSendProcessService;
 
     @PostMapping("single")
-    public R<Void> sendMsg(@RequestBody SingleMsgSendRequest request){
-        chatMsgSendProcessService.sendSingleMsg(request);
-        return R.success();
+    public R<String> sendMsg(@RequestBody SingleMsgSendRequest request){
+        return R.success(chatMsgSendProcessService.sendSingleMsg(request));
     }
 
 
     @PostMapping("group")
-    public R<Void> sendGroupMsg(@RequestBody GroupMsgSendRequest request){
-        chatMsgSendProcessService.sendGroupMsg(request);
-        return R.success();
+    public R<String> sendGroupMsg(@RequestBody GroupMsgSendRequest request){
+        return R.success(chatMsgSendProcessService.sendGroupMsg(request));
     }
 
 

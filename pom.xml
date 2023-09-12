@@ -31,6 +31,7 @@
         <module>lemon-im-components</module>
         <module>lemon-im-client</module>
         <module>lemon-feign-api</module>
+        <module>lemon-im-router</module>
     </modules>
 
 
