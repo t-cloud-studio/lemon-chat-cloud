@@ -44,7 +44,7 @@ public class MQConsumerScanProcesser implements BeanPostProcessor {
             log.error("[{}] >>> 未实现 {} 的<onMessage>方法", bean.getClass().getName(), MessageListenerConcurrently.class.getName());
             return bean;
         }
-        MQRouter mqEnum = annotation.mqTopic();
+        MQRouter mqEnum = annotation.target();
         if (Objects.isNull(mqEnum)) {
             log.error("[{}] >>> 未填写对应监听MQ枚举", bean.getClass().getName());
             return bean;

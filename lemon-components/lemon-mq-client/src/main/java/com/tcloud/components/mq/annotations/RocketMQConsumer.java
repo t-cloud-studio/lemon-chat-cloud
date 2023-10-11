@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface RocketMQConsumer {
 
-    MQRouter mqTopic();
+    MQRouter target();
 
 }
