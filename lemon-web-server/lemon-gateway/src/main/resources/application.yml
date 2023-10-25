@@ -37,4 +37,6 @@ spring:
             - Path=/web/ucenter/**
       exclude:
         patterns:
-          - "/web/auth/user_info/login_action"
+          - /web/auth/user_info/login_action
+          - /web/auth/captcha/chaff_line_captcha
+          - /web/auth/captcha/send_sms_captcha

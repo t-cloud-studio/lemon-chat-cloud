@@ -19,7 +19,6 @@
         <module>lemon-im-common</module>
         <module>lemon-im-protocol</module>
         <module>lemon-im-register</module>
-        <module>lemon-im-router</module>
         <module>lemon-im-lsb</module>
     </modules>
 

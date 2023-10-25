@@ -22,5 +22,6 @@
         <module>lemon-common-obj</module>
         <module>lemon-token-client</module>
         <module>lemon-captcha-generator</module>
+        <module>lemon-mq-client</module>
     </modules>
 </project>
