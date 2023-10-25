@@ -5,6 +5,9 @@ import com.tcloud.web.msg.domain.req.SingleMsgSendRequest;
 import com.tcloud.web.msg.service.ChatMsgSendProcessService;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author evans
+ */
 @Service
 public class ChatMsgSendProcessServiceImpl implements ChatMsgSendProcessService {
 
